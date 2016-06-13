@@ -7,6 +7,11 @@ Simple Retail shop App demonstrate using material design to build a simple shopp
 - Persitance of Cart list
 - Reusing fragments in MVC architecture.
 - material design patterns 
+- Loading and caching image from web with help of Glide
+- RecyclerView animation with JazzyListAnimation
+- View pager 3D cube animation with JazzyView Pager Transformations
+- Drag & drop and Swipe to dismiss recyclerview 
+- ACRA crash reporting
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
 
