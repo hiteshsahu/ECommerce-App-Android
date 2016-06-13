@@ -16,6 +16,7 @@ Simple Retail shop App demonstrate using material design to build a simple shopp
 navigation Drawer
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
+  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/persistance_storage_onrelaunch.png "Nav")
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/home_screen.png "Home")
   ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_category.png "Products")
@@ -26,7 +27,7 @@ navigation Drawer
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/checkout_screen_visble_amount.png "Checkout list")
  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/empty_cart.png "Empty cart")
 
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/checkout_screen_visble_amount.png "Collapse cart")
+![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/visivle_total_amount.png "Collapse cart")
   ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/visivle_total_amount_from_product_detail.png "Collapsable cart")
 
 Copyright 2015 Hitesh Kumar Sahu
