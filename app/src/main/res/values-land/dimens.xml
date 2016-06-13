@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardview_toolbar_spacer">80dp</dimen>
+
+    <dimen name="toolbar_double_height">96dp</dimen>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/material_blue_500" 
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:visibility="visible"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:drawable/stat_notify_error" />
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:text="Look like you are Offline. \n For better experience use Application online"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/green_g_plus_button"
+        android:text="Ok Got it"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+</RelativeLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog>
+
+    <release
+        date="12/26/2012"
+        summary="Example summary"
+        version="1.2"
+        versioncode="3" >
+        <change>
+As part of initial release, the app should have the following features:
+        </change>
+        <change>
+1. User should be able to view list of products grouped by categories.
+        </change>
+        <change>
+2. User should be able to view details by selecting a product from list.
+        </change>
+        <change>
+3. The product details includes an image, name and price of product.
+        </change>
+        <change>
+4. Product details page should have a button to add the product to cart.
+        </change>
+        <change>
+5. Cart displays a list of products along with its price.
+        </change>
+        <change>
+6. Cart also displays the total price for all the products added.
+        </change>
+        <change>
+7. User should be able to view cart at any time.
+        </change>
+        <change>
+8. User should be able to navigate to product details from Cart as well.
+        </change>
+        <change>
+9. User should be able to delete any product from the cart.
+        </change>
+        <change>
+10. Cart should be persisted in the app i.e. if user exits the app, the cart  should be available on re-launch of the app.
+        </change>
+        <change>
+11. All the data needs to be stored locally within the app and should not rely on any external services for the same.
+        </change>
+    </release>
+    <release
+        date="12/25/2012"
+        version="1.1"
+        versioncode="2" >
+        <change>
+Small layout change
+        </change>
+        <change>
+Minor tweaks
+        </change>
+    </release>
+
+</changelog>

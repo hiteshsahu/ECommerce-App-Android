@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="clip_horizontal"
+    android:background="@color/material_blue_500"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtSpeech_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="clip_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        android:gravity="center_horizontal"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="Search Product"
+        android:textColor="@color/holo_gray_dark"
+        android:textSize="25sp"
+        android:textStyle="normal" />
+
+    <RelativeLayout
+        android:id="@+id/search_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtSpeech_heading" >
+
+        <EditText
+            android:id="@+id/edt_search_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@+id/btnSpeak"
+            android:background="@drawable/rounder_rectangle_visa_card"
+            android:hapticFeedbackEnabled="true"
+            android:hint="What do you wish for ?"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="@color/holo_gray_dark"
+            android:textColorHint="@color/holo_gray_dark"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_mic" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/search_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_root"
+        android:visibility="visible" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/txtSpeechInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_root"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="#70000000"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:visibility="gone" />
+
+</RelativeLayout>
