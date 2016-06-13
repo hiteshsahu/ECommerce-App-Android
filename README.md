@@ -13,6 +13,8 @@ Simple Retail shop App demonstrate using material design to build a simple shopp
 - Drag & drop and Swipe to dismiss recyclerview 
 - ACRA crash reporting
 
+navigation Drawer
+
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/home_screen.png "Home")
