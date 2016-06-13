@@ -29,6 +29,9 @@ navigation Drawer
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/visivle_total_amount.png "Collapse cart")
   ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/visivle_total_amount_from_product_detail.png "Collapsable cart")
+  
+![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail.png "Collapse cart")
+  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail_suggestions.png "Collapsable cart")
 
 Copyright 2015 Hitesh Kumar Sahu
 
