@@ -1,19 +1,26 @@
 # Shopping App 
-Simple Retail shop App demonstrate using material design to build a simple shopping app to display
-- List of categories
-- Product list in category
-- Product detail
-- Add to cart and cart list
-- Persitance of Cart list
-- Reusing fragments in MVC architecture.
-- material design patterns 
-- Loading and caching image from web with help of Glide
+E-Commerce example for Android with the help of ANdroid Material Design. 
+
+### This project have features:- 
+
+- Display categories of product (eg Electronic,Furnitures)
+- Display products in a given category (TV,Microwave,Vaccum cleaner)
+- Show Product Details
+- Add any product  to cart and update total item count and amount
+- Store cart list in DB
+ 
+### This project demonstrates 
+
+- Reusing Fragments in MVC architecture.
+- Material design patterns-Collpsable Toolbar, FAB etc
+- Loading and caching image from web URl with help of Glide
 - RecyclerView animation with JazzyListAnimation
 - View pager 3D cube animation with JazzyView Pager Transformations
-- Drag & drop and Swipe to dismiss recyclerview 
+- Drag & drop in Recyclerview 
+- Swipe to dismiss in RecyclerView
 - ACRA crash reporting
 
-navigation Drawer
+Screen shots
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
   ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/persistance_storage_onrelaunch.png "Nav")
