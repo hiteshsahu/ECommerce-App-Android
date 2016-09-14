@@ -1,5 +1,5 @@
 # Shopping App 
-E-Commerce example for Android with the help of ANdroid Material Design. 
+Forgive my english . This is an full stack E-Commerce App I started as pet project to understand Retail business logic. However I started to get request to  reuse this project in real world from alla round the world. So I have decide to keep it real and make avialble for all who are starting a new business and having tought time nagotiating with developers with tight budgets. 
 
 ### This project have features:- 
 
@@ -7,7 +7,8 @@ E-Commerce example for Android with the help of ANdroid Material Design.
 - Display products in a given category (TV,Microwave,Vaccum cleaner)
 - Show Product Details
 - Add any product  to cart and update total item count and amount
-- Store cart list in DB
+- Store cart list in DB for persistant storage.
+- Whats new dialog on new update
  
 ### This project demonstrates 
 
@@ -20,7 +21,7 @@ E-Commerce example for Android with the help of ANdroid Material Design.
 - Swipe to dismiss in RecyclerView
 - ACRA crash reporting
 
-Screen shots
+## Screen shots
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
   ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/persistance_storage_onrelaunch.png "Nav")
@@ -39,6 +40,13 @@ Screen shots
   
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail.png "Collapse cart")
   ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail_suggestions.png "Collapsable cart")
+  
+  
+# Terms of Use
+
+If you using this project or parts of it please ping me on [ Google+](https://plus.google.com/u/0/+HiteshSahu7) and let me know. I would like to add your  product in feature page.
+  
+  
 
 Copyright 2015 Hitesh Kumar Sahu
 
