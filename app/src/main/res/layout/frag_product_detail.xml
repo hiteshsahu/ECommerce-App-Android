@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/white"
+    android:gravity="center_horizontal" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/htab_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:gravity="center_horizontal"
+            android:scaleType="center" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center_horizontal"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/holo_gray_dark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/category_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center_horizontal"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/holo_gray_dark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/product_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_name"
+            android:layout_gravity="left"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/remove_item"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@color/red"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="-"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/iteam_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:minWidth="70dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="0"
+                android:textColor="@android:color/background_dark"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/add_item"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@color/holo_green_light"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="+"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/hot_offers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal"
+            android:text="@string/similar_product"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <com.hitesh_sahu.retailapp.view.customview.ClickableViewPager
+            android:id="@+id/similar_products_pager"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_below="@+id/hot_offers"
+            android:layout_marginTop="2dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/best_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Top Selling"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <com.hitesh_sahu.retailapp.view.customview.ClickableViewPager
+            android:id="@+id/top_selleing_pager"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_below="@+id/best_value"
+            android:layout_marginTop="2dp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</ScrollView>

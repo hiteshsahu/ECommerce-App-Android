@@ -21,7 +21,7 @@
             android:layout_toRightOf="@+id/pro_txt"
             android:src="@drawable/app_icon" />
 
-        <com.serveroverload.retailapp.util.FontText
+        <com.hitesh_sahu.retailapp.util.FontText
             xmlns:font="http://schemas.android.com/apk/lib/com.thoughtworks.retailshop.util"
             android:id="@+id/pro_txt"
             style="@style/TextAppearance.AppCompat.Display1"

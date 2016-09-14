@@ -30,7 +30,7 @@
             app:indicator="LineScaleParty"
             app:indicator_color="#F53700" />
 
-        <include layout="@layout/slider_anchor" />
+        <include layout="@layout/view_bottom_anchor" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
