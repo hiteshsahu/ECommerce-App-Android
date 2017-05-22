@@ -34,14 +34,14 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.hitesh_sahu.retailapp.R;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.Money;
 import com.hitesh_sahu.retailapp.model.entities.Product;
 import com.hitesh_sahu.retailapp.util.ColorGenerator;
 import com.hitesh_sahu.retailapp.util.Utils;
 import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
-import com.hitesh_sahu.retailapp.view.adapter.ProductsPagerAdapter;
+import com.hitesh_sahu.retailapp.view.adapter.SimilarProductsPagerAdapter;
 import com.hitesh_sahu.retailapp.view.customview.ClickableViewPager;
 import com.hitesh_sahu.retailapp.view.customview.ClickableViewPager.OnItemClickListener;
 import com.hitesh_sahu.retailapp.view.customview.LabelView;
@@ -146,23 +146,23 @@ public class ProductDetailsFragment extends Fragment {
 						if (isFromCart) {
 							
 							//Update Quantity on shopping List
-							GlobaDataHolder
-									.getGlobaDataHolder()
-									.getShoppingList()
+							CenterRepository
+									.getCenterRepository()
+									.getListOfProductsInShoppingList()
 									.get(productListNumber)
 									.setQuantity(
 											String.valueOf(
 
-											Integer.valueOf(GlobaDataHolder
-													.getGlobaDataHolder()
-													.getShoppingList()
+											Integer.valueOf(CenterRepository
+													.getCenterRepository()
+													.getListOfProductsInShoppingList()
 													.get(productListNumber)
 													.getQuantity()) + 1));
 
 							
 							//Update Ui
-							quanitity.setText(GlobaDataHolder
-									.getGlobaDataHolder().getShoppingList()
+							quanitity.setText(CenterRepository
+									.getCenterRepository().getListOfProductsInShoppingList()
 									.get(productListNumber).getQuantity());
 
 							Utils.vibrate(getActivity());
@@ -170,26 +170,26 @@ public class ProductDetailsFragment extends Fragment {
 							//Update checkout amount on screen
 							((ECartHomeActivity) getActivity()).updateCheckOutAmount(
 									BigDecimal.valueOf(Long
-											.valueOf(GlobaDataHolder
-													.getGlobaDataHolder()
-													.getShoppingList()
+											.valueOf(CenterRepository
+													.getCenterRepository()
+													.getListOfProductsInShoppingList()
 													.get(productListNumber)
 													.getSellMRP())), true);
 
 						} else {
 
 							// current object
-							Product tempObj = GlobaDataHolder
-									.getGlobaDataHolder().getProductMap()
+							Product tempObj = CenterRepository
+									.getCenterRepository().getMapOfProductsInCategory()
 									.get(subcategoryKey).get(productListNumber);
 
 							// if current object is lready in shopping list
-							if (GlobaDataHolder.getGlobaDataHolder()
-									.getShoppingList().contains(tempObj)) {
+							if (CenterRepository.getCenterRepository()
+									.getListOfProductsInShoppingList().contains(tempObj)) {
 
 								// get position of current item in shopping list
-								int indexOfTempInShopingList = GlobaDataHolder
-										.getGlobaDataHolder().getShoppingList()
+								int indexOfTempInShopingList = CenterRepository
+										.getCenterRepository().getListOfProductsInShoppingList()
 										.indexOf(tempObj);
 
 								// increase quantity of current item in shopping
@@ -202,9 +202,9 @@ public class ProductDetailsFragment extends Fragment {
 								}
 
 								// update quanity in shopping list
-								GlobaDataHolder
-										.getGlobaDataHolder()
-										.getShoppingList()
+								CenterRepository
+										.getCenterRepository()
+										.getListOfProductsInShoppingList()
 										.get(indexOfTempInShopingList)
 										.setQuantity(
 												String.valueOf(Integer
@@ -214,9 +214,9 @@ public class ProductDetailsFragment extends Fragment {
 								// update checkout amount
 								((ECartHomeActivity) getContext()).updateCheckOutAmount(
 										BigDecimal.valueOf(Long
-												.valueOf(GlobaDataHolder
-														.getGlobaDataHolder()
-														.getProductMap()
+												.valueOf(CenterRepository
+														.getCenterRepository()
+														.getMapOfProductsInCategory()
 														.get(subcategoryKey)
 														.get(productListNumber)
 														.getSellMRP())), true);
@@ -233,14 +233,14 @@ public class ProductDetailsFragment extends Fragment {
 
 								quanitity.setText(tempObj.getQuantity());
 
-								GlobaDataHolder.getGlobaDataHolder()
-										.getShoppingList().add(tempObj);
+								CenterRepository.getCenterRepository()
+										.getListOfProductsInShoppingList().add(tempObj);
 
 								((ECartHomeActivity) getContext()).updateCheckOutAmount(
 										BigDecimal.valueOf(Long
-												.valueOf(GlobaDataHolder
-														.getGlobaDataHolder()
-														.getProductMap()
+												.valueOf(CenterRepository
+														.getCenterRepository()
+														.getMapOfProductsInCategory()
 														.get(subcategoryKey)
 														.get(productListNumber)
 														.getSellMRP())), true);
@@ -264,54 +264,54 @@ public class ProductDetailsFragment extends Fragment {
 
 						{
 
-							if (Integer.valueOf(GlobaDataHolder
-									.getGlobaDataHolder().getShoppingList()
+							if (Integer.valueOf(CenterRepository
+									.getCenterRepository().getListOfProductsInShoppingList()
 									.get(productListNumber).getQuantity()) > 2) {
 
-								GlobaDataHolder
-										.getGlobaDataHolder()
-										.getShoppingList()
+								CenterRepository
+										.getCenterRepository()
+										.getListOfProductsInShoppingList()
 										.get(productListNumber)
 										.setQuantity(
 												String.valueOf(
 
-												Integer.valueOf(GlobaDataHolder
-														.getGlobaDataHolder()
-														.getShoppingList()
+												Integer.valueOf(CenterRepository
+														.getCenterRepository()
+														.getListOfProductsInShoppingList()
 														.get(productListNumber)
 														.getQuantity()) - 1));
 
-								quanitity.setText(GlobaDataHolder
-										.getGlobaDataHolder().getShoppingList()
+								quanitity.setText(CenterRepository
+										.getCenterRepository().getListOfProductsInShoppingList()
 										.get(productListNumber).getQuantity());
 
 								((ECartHomeActivity) getActivity()).updateCheckOutAmount(
 										BigDecimal.valueOf(Long
-												.valueOf(GlobaDataHolder
-														.getGlobaDataHolder()
-														.getShoppingList()
+												.valueOf(CenterRepository
+														.getCenterRepository()
+														.getListOfProductsInShoppingList()
 														.get(productListNumber)
 														.getSellMRP())), false);
 
 								Utils.vibrate(getActivity());
 							}
 
-							else if (Integer.valueOf(GlobaDataHolder
-									.getGlobaDataHolder().getShoppingList()
+							else if (Integer.valueOf(CenterRepository
+									.getCenterRepository().getListOfProductsInShoppingList()
 									.get(productListNumber).getQuantity()) == 1) {
 								((ECartHomeActivity) getActivity())
 										.updateItemCount(false);
 
 								((ECartHomeActivity) getActivity()).updateCheckOutAmount(
 										BigDecimal.valueOf(Long
-												.valueOf(GlobaDataHolder
-														.getGlobaDataHolder()
-														.getShoppingList()
+												.valueOf(CenterRepository
+														.getCenterRepository()
+														.getListOfProductsInShoppingList()
 														.get(productListNumber)
 														.getSellMRP())), false);
 
-								GlobaDataHolder.getGlobaDataHolder()
-										.getShoppingList()
+								CenterRepository.getCenterRepository()
+										.getListOfProductsInShoppingList()
 										.remove(productListNumber);
 
 								if (Integer
@@ -330,22 +330,22 @@ public class ProductDetailsFragment extends Fragment {
 
 						else {
 
-							Product tempObj = GlobaDataHolder
-									.getGlobaDataHolder().getProductMap()
+							Product tempObj = CenterRepository
+									.getCenterRepository().getMapOfProductsInCategory()
 									.get(subcategoryKey).get(productListNumber);
 
-							if (GlobaDataHolder.getGlobaDataHolder()
-									.getShoppingList().contains(tempObj)) {
+							if (CenterRepository.getCenterRepository()
+									.getListOfProductsInShoppingList().contains(tempObj)) {
 
-								int indexOfTempInShopingList = GlobaDataHolder
-										.getGlobaDataHolder().getShoppingList()
+								int indexOfTempInShopingList = CenterRepository
+										.getCenterRepository().getListOfProductsInShoppingList()
 										.indexOf(tempObj);
 
 								if (Integer.valueOf(tempObj.getQuantity()) != 0) {
 
-									GlobaDataHolder
-											.getGlobaDataHolder()
-											.getShoppingList()
+									CenterRepository
+											.getCenterRepository()
+											.getListOfProductsInShoppingList()
 											.get(indexOfTempInShopingList)
 											.setQuantity(
 													String.valueOf(Integer.valueOf(tempObj
@@ -353,31 +353,31 @@ public class ProductDetailsFragment extends Fragment {
 
 									((ECartHomeActivity) getContext()).updateCheckOutAmount(
 											BigDecimal.valueOf(Long
-													.valueOf(GlobaDataHolder
-															.getGlobaDataHolder()
-															.getProductMap()
+													.valueOf(CenterRepository
+															.getCenterRepository()
+															.getMapOfProductsInCategory()
 															.get(subcategoryKey)
 															.get(productListNumber)
 															.getSellMRP())),
 											false);
 
-									quanitity.setText(GlobaDataHolder
-											.getGlobaDataHolder()
-											.getShoppingList()
+									quanitity.setText(CenterRepository
+											.getCenterRepository()
+											.getListOfProductsInShoppingList()
 											.get(indexOfTempInShopingList)
 											.getQuantity());
 
 									Utils.vibrate(getContext());
 
-									if (Integer.valueOf(GlobaDataHolder
-											.getGlobaDataHolder()
-											.getShoppingList()
+									if (Integer.valueOf(CenterRepository
+											.getCenterRepository()
+											.getListOfProductsInShoppingList()
 											.get(indexOfTempInShopingList)
 											.getQuantity()) == 0) {
 
-										GlobaDataHolder
-												.getGlobaDataHolder()
-												.getShoppingList()
+										CenterRepository
+												.getCenterRepository()
+												.getListOfProductsInShoppingList()
 												.remove(indexOfTempInShopingList);
 
 										((ECartHomeActivity) getContext())
@@ -441,7 +441,7 @@ public class ProductDetailsFragment extends Fragment {
 
 	private void showRecomondation() {
 
-		ProductsPagerAdapter mCustomPagerAdapter = new ProductsPagerAdapter(
+		SimilarProductsPagerAdapter mCustomPagerAdapter = new SimilarProductsPagerAdapter(
 				getActivity(), subcategoryKey);
 
 		similarProductsPager.setAdapter(mCustomPagerAdapter);
@@ -484,28 +484,28 @@ public class ProductDetailsFragment extends Fragment {
 			
 			//Fetch and display item from Gloabl Data Model
 
-			itemName.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getProductMap().get(subcategoryKey).get(productListNumber)
+			itemName.setText(CenterRepository.getCenterRepository()
+					.getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
 					.getItemName());
 
-			quanitity.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getProductMap().get(subcategoryKey).get(productListNumber)
+			quanitity.setText(CenterRepository.getCenterRepository()
+					.getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
 					.getQuantity());
 
-			itemdescription.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getProductMap().get(subcategoryKey).get(productListNumber)
+			itemdescription.setText(CenterRepository.getCenterRepository()
+					.getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
 					.getItemDetail());
 
 			String sellCostString = Money.rupees(
-					BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-							.getGlobaDataHolder().getProductMap()
+					BigDecimal.valueOf(Long.valueOf(CenterRepository
+							.getCenterRepository().getMapOfProductsInCategory()
 							.get(subcategoryKey).get(productListNumber)
 							.getSellMRP()))).toString()
 					+ "  ";
 
 			String buyMRP = Money.rupees(
-					BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-							.getGlobaDataHolder().getProductMap()
+					BigDecimal.valueOf(Long.valueOf(CenterRepository
+							.getCenterRepository().getMapOfProductsInCategory()
 							.get(subcategoryKey).get(productListNumber)
 							.getMRP()))).toString();
 
@@ -522,16 +522,16 @@ public class ProductDetailsFragment extends Fragment {
 					.withBorder(4).endConfig().roundRect(10);
 
 			drawable = mDrawableBuilder.build(
-					String.valueOf(GlobaDataHolder.getGlobaDataHolder()
-							.getProductMap().get(subcategoryKey)
+					String.valueOf(CenterRepository.getCenterRepository()
+							.getMapOfProductsInCategory().get(subcategoryKey)
 							.get(productListNumber).getItemName().charAt(0)),
-					mColorGenerator.getColor(GlobaDataHolder
-							.getGlobaDataHolder().getProductMap()
+					mColorGenerator.getColor(CenterRepository
+							.getCenterRepository().getMapOfProductsInCategory()
 							.get(subcategoryKey).get(productListNumber)
 							.getItemName()));
 
 			Picasso.with(getActivity())
-					.load(GlobaDataHolder.getGlobaDataHolder().getProductMap()
+					.load(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 							.get(subcategoryKey).get(productListNumber)
 							.getImageURL()).placeholder(drawable)
 					.error(drawable).fit().centerCrop()
@@ -547,8 +547,8 @@ public class ProductDetailsFragment extends Fragment {
 							// Try again online if cache failed
 
 							Picasso.with(getActivity())
-									.load(GlobaDataHolder.getGlobaDataHolder()
-											.getProductMap()
+									.load(CenterRepository.getCenterRepository()
+											.getMapOfProductsInCategory()
 											.get(subcategoryKey)
 											.get(productListNumber)
 											.getImageURL())
@@ -559,7 +559,7 @@ public class ProductDetailsFragment extends Fragment {
 
 			LabelView label = new LabelView(getActivity());
 
-			label.setText(GlobaDataHolder.getGlobaDataHolder().getProductMap()
+			label.setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 					.get(subcategoryKey).get(productListNumber).getDiscount());
 			label.setBackgroundColor(0xffE91E63);
 
@@ -569,24 +569,24 @@ public class ProductDetailsFragment extends Fragment {
 			
 			//Fetch and display products from Shopping list
 			
-			itemName.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getShoppingList().get(productListNumber).getItemName());
+			itemName.setText(CenterRepository.getCenterRepository()
+					.getListOfProductsInShoppingList().get(productListNumber).getItemName());
 
-			quanitity.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getShoppingList().get(productListNumber).getQuantity());
+			quanitity.setText(CenterRepository.getCenterRepository()
+					.getListOfProductsInShoppingList().get(productListNumber).getQuantity());
 
-			itemdescription.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getShoppingList().get(productListNumber).getItemDetail());
+			itemdescription.setText(CenterRepository.getCenterRepository()
+					.getListOfProductsInShoppingList().get(productListNumber).getItemDetail());
 
 			String sellCostString = Money.rupees(
-					BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-							.getGlobaDataHolder().getShoppingList()
+					BigDecimal.valueOf(Long.valueOf(CenterRepository
+							.getCenterRepository().getListOfProductsInShoppingList()
 							.get(productListNumber).getSellMRP()))).toString()
 					+ "  ";
 
 			String buyMRP = Money.rupees(
-					BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-							.getGlobaDataHolder().getShoppingList()
+					BigDecimal.valueOf(Long.valueOf(CenterRepository
+							.getCenterRepository().getListOfProductsInShoppingList()
 							.get(productListNumber).getMRP()))).toString();
 
 			String costString = sellCostString + buyMRP;
@@ -602,16 +602,16 @@ public class ProductDetailsFragment extends Fragment {
 					.withBorder(4).endConfig().roundRect(10);
 
 			drawable = mDrawableBuilder.build(
-					String.valueOf(GlobaDataHolder.getGlobaDataHolder()
-							.getShoppingList().get(productListNumber)
+					String.valueOf(CenterRepository.getCenterRepository()
+							.getListOfProductsInShoppingList().get(productListNumber)
 							.getItemName().charAt(0)),
-					mColorGenerator.getColor(GlobaDataHolder
-							.getGlobaDataHolder().getShoppingList()
+					mColorGenerator.getColor(CenterRepository
+							.getCenterRepository().getListOfProductsInShoppingList()
 							.get(productListNumber).getItemName()));
 
 			Picasso.with(getActivity())
-					.load(GlobaDataHolder.getGlobaDataHolder()
-							.getShoppingList().get(productListNumber)
+					.load(CenterRepository.getCenterRepository()
+							.getListOfProductsInShoppingList().get(productListNumber)
 							.getImageURL()).placeholder(drawable)
 					.error(drawable).fit().centerCrop()
 					.networkPolicy(NetworkPolicy.OFFLINE)
@@ -626,8 +626,8 @@ public class ProductDetailsFragment extends Fragment {
 							// Try again online if cache failed
 
 							Picasso.with(getActivity())
-									.load(GlobaDataHolder.getGlobaDataHolder()
-											.getShoppingList()
+									.load(CenterRepository.getCenterRepository()
+											.getListOfProductsInShoppingList()
 											.get(productListNumber)
 											.getImageURL())
 									.placeholder(drawable).error(drawable)
@@ -637,8 +637,8 @@ public class ProductDetailsFragment extends Fragment {
 
 			LabelView label = new LabelView(getActivity());
 
-			label.setText(GlobaDataHolder.getGlobaDataHolder()
-					.getShoppingList().get(productListNumber).getDiscount());
+			label.setText(CenterRepository.getCenterRepository()
+					.getListOfProductsInShoppingList().get(productListNumber).getDiscount());
 			label.setBackgroundColor(0xffE91E63);
 
 			label.setTargetView(itemImage, 10, LabelView.Gravity.RIGHT_TOP);

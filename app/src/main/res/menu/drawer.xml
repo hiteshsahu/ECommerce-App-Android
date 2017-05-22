@@ -11,6 +11,11 @@
             android:id="@+id/my_cart"
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="My Cart"/>
+
+        <item
+            android:id="@+id/apriori_result"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Apriori Mining Result"/>
         <item
             android:id="@+id/contact_us"
             android:icon="@android:drawable/ic_menu_call"

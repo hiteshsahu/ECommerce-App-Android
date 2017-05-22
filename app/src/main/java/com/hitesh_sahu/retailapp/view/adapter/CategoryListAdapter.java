@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hitesh_sahu.retailapp.R;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.ProductCategoryModel;
 import com.hitesh_sahu.retailapp.util.ColorGenerator;
 import com.hitesh_sahu.retailapp.view.customview.LabelView;
@@ -20,6 +20,9 @@ import com.hitesh_sahu.retailapp.view.customview.TextDrawable.IBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  @author Hitesh Sahu (hiteshsahu.com)
+ */
 public class CategoryListAdapter extends
 		RecyclerView.Adapter<CategoryListAdapter.VersionViewHolder> {
 
@@ -38,7 +41,7 @@ public class CategoryListAdapter extends
 
 	public CategoryListAdapter(Context context) {
 
-		categoryList = GlobaDataHolder.getGlobaDataHolder().getListOfCategory();
+		categoryList = CenterRepository.getCenterRepository().getListOfCategory();
 
 		this.context = context;
 	}

@@ -17,7 +17,6 @@ import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
 import com.hitesh_sahu.retailapp.view.adapter.ProductListAdapter;
 import com.hitesh_sahu.retailapp.view.adapter.ProductListAdapter.OnItemClickListener;
-import com.twotoasters.jazzylistview.recyclerview.JazzyRecyclerViewScrollListener;
 
 public class ProductListFragment extends Fragment {
     private String subcategoryKey;
@@ -78,10 +77,6 @@ public class ProductListFragment extends Fragment {
                 getActivity(), isShoppingList);
 
         recyclerView.setAdapter(adapter);
-
-        JazzyRecyclerViewScrollListener jazzyScrollListener = new JazzyRecyclerViewScrollListener();
-        recyclerView.setOnScrollListener(jazzyScrollListener);
-        jazzyScrollListener.setTransitionEffect(11);
 
         adapter.SetOnItemClickListener(new OnItemClickListener() {
 

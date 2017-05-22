@@ -1,17 +1,17 @@
 package com.hitesh_sahu.retailapp.view.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class ProductOverViewPagerAdapter extends FragmentStatePagerAdapter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductsInCategoryPagerAdapter extends FragmentStatePagerAdapter {
 	private final List<Fragment> mFragmentList = new ArrayList<>();
 	private final List<String> mFragmentTitleList = new ArrayList<>();
 
-	public ProductOverViewPagerAdapter(FragmentManager manager) {
+	public ProductsInCategoryPagerAdapter(FragmentManager manager) {
 		super(manager);
 	}
 

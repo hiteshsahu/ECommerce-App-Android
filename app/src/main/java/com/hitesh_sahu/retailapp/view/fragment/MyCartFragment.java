@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.hitesh_sahu.retailapp.R;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.util.Utils;
 import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
@@ -23,7 +23,6 @@ import com.hitesh_sahu.retailapp.view.adapter.ShoppingListAdapter;
 import com.hitesh_sahu.retailapp.view.adapter.ShoppingListAdapter.OnItemClickListener;
 import com.hitesh_sahu.retailapp.view.customview.OnStartDragListener;
 import com.hitesh_sahu.retailapp.view.customview.SimpleItemTouchHelperCallback;
-import com.twotoasters.jazzylistview.recyclerview.JazzyRecyclerViewScrollListener;
 
 public class MyCartFragment extends Fragment implements OnStartDragListener {
 
@@ -63,7 +62,7 @@ public class MyCartFragment extends Fragment implements OnStartDragListener {
 		recyclerView = (RecyclerView) view
 				.findViewById(R.id.product_list_recycler_view);
 
-		if (GlobaDataHolder.getGlobaDataHolder().getShoppingList().size() != 0) {
+		if (CenterRepository.getCenterRepository().getListOfProductsInShoppingList().size() != 0) {
 
 			LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
 					getActivity().getBaseContext());
@@ -75,10 +74,6 @@ public class MyCartFragment extends Fragment implements OnStartDragListener {
 					getActivity(), this);
 
 			recyclerView.setAdapter(shoppinListAdapter);
-
-			JazzyRecyclerViewScrollListener jazzyScrollListener = new JazzyRecyclerViewScrollListener();
-			recyclerView.setOnScrollListener(jazzyScrollListener);
-			jazzyScrollListener.setTransitionEffect(11);
 
 			shoppinListAdapter
 					.SetOnItemClickListener(new OnItemClickListener() {

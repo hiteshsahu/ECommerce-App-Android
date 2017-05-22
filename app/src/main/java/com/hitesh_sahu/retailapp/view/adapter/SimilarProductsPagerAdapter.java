@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hitesh_sahu.retailapp.R;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.Money;
 import com.hitesh_sahu.retailapp.util.ColorGenerator;
 import com.hitesh_sahu.retailapp.view.customview.LabelView;
@@ -23,11 +23,10 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class HomeSlidesPagerAdapter.
+ *  @author Hitesh Sahu (hiteshsahu.com)
  */
-public class ProductsPagerAdapter extends PagerAdapter {
+public class SimilarProductsPagerAdapter extends PagerAdapter {
 
 	/** The m context. */
 	Context mContext;
@@ -49,7 +48,7 @@ public class ProductsPagerAdapter extends PagerAdapter {
 	 * @param context
 	 *            the context
 	 */
-	public ProductsPagerAdapter(Context context, String productCategory) {
+	public SimilarProductsPagerAdapter(Context context, String productCategory) {
 		mContext = context;
 		mLayoutInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -64,10 +63,10 @@ public class ProductsPagerAdapter extends PagerAdapter {
 	@Override
 	public int getCount() {
 
-		if (null != GlobaDataHolder.getGlobaDataHolder().getProductMap()
-				&& null != GlobaDataHolder.getGlobaDataHolder().getProductMap()
+		if (null != CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+				&& null != CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 						.get(productCategory)) {
-			return GlobaDataHolder.getGlobaDataHolder().getProductMap()
+			return CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 					.get(productCategory).size();
 		}
 
@@ -104,15 +103,15 @@ public class ProductsPagerAdapter extends PagerAdapter {
 				.endConfig().roundRect(10);
 
 		drawable = mDrawableBuilder.build(
-				String.valueOf(GlobaDataHolder.getGlobaDataHolder()
-						.getProductMap().get(productCategory).get(position)
+				String.valueOf(CenterRepository.getCenterRepository()
+						.getMapOfProductsInCategory().get(productCategory).get(position)
 						.getItemName().charAt(0)),
 
-				mColorGenerator.getColor(GlobaDataHolder.getGlobaDataHolder()
-						.getProductMap().get(productCategory).get(position)
+				mColorGenerator.getColor(CenterRepository.getCenterRepository()
+						.getMapOfProductsInCategory().get(productCategory).get(position)
 						.getItemName()));
 
-		final String ImageUrl = GlobaDataHolder.getGlobaDataHolder().getProductMap()
+		final String ImageUrl = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 				.get(productCategory).get(position).getImageURL();
 
 		Picasso.with(mContext).load(ImageUrl).placeholder(drawable)
@@ -135,22 +134,22 @@ public class ProductsPagerAdapter extends PagerAdapter {
 				});
 
 		((TextView) itemView.findViewById(R.id.item_name))
-				.setText(GlobaDataHolder.getGlobaDataHolder().getProductMap()
+				.setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 						.get(productCategory).get(position).getItemName());
 
 		((TextView) itemView.findViewById(R.id.item_short_desc))
-				.setText(GlobaDataHolder.getGlobaDataHolder().getProductMap()
+				.setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 						.get(productCategory).get(position).getItemDetail());
 
 		((TextView) itemView.findViewById(R.id.category_discount))
 				.setText(Money.rupees(
-						BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-								.getGlobaDataHolder().getProductMap()
+						BigDecimal.valueOf(Long.valueOf(CenterRepository
+								.getCenterRepository().getMapOfProductsInCategory()
 								.get(productCategory).get(position)
 								.getSellMRP()))).toString());
 
 		LabelView label = new LabelView(mContext);
-		label.setText(GlobaDataHolder.getGlobaDataHolder().getProductMap()
+		label.setText(CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 				.get(productCategory).get(position).getDiscount());
 		label.setBackgroundColor(0xffE91E63);
 		label.setTargetView(itemView.findViewById(R.id.imageView), 10,

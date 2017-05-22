@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.hitesh_sahu.retailapp.domain.mock.FakeWebServer;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
-import com.hitesh_sahu.retailapp.view.adapter.ProductOverViewPagerAdapter;
+import com.hitesh_sahu.retailapp.view.adapter.ProductsInCategoryPagerAdapter;
 import com.hitesh_sahu.retailapp.view.fragment.ProductListFragment;
 
 import java.util.Set;
@@ -193,10 +193,10 @@ public class ProductLoaderTask extends AsyncTask<String, Void, Void> {
 
 	private void setupViewPager() {
 
-		ProductOverViewPagerAdapter adapter = new ProductOverViewPagerAdapter(
+		ProductsInCategoryPagerAdapter adapter = new ProductsInCategoryPagerAdapter(
 				((ECartHomeActivity) context).getSupportFragmentManager());
 
-		Set<String> keys = GlobaDataHolder.getGlobaDataHolder().getProductMap()
+		Set<String> keys = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 				.keySet();
 
 		for (String string : keys) {

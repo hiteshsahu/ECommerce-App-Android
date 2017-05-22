@@ -149,7 +149,7 @@ public class ContactUsFragment extends Fragment {
 						emailIntent
 								.putExtra(
 										android.content.Intent.EXTRA_EMAIL,
-										new String[] { "hiteshkumarsahu1990@gmail.com" });
+										new String[] { "hiteshkrsahu@gmail.com" });
 						emailIntent.putExtra(
 								android.content.Intent.EXTRA_SUBJECT,
 								"Hello There");

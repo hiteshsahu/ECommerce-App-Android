@@ -1,10 +1,15 @@
 package com.hitesh_sahu.retailapp.view.activities;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +20,9 @@ import android.widget.TextView;
 
 import com.hitesh_sahu.retailapp.R;
 import com.hitesh_sahu.retailapp.domain.helper.Connectivity;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.domain.mining.AprioriFrequentItemsetGenerator;
+import com.hitesh_sahu.retailapp.domain.mining.FrequentItemsetData;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.Money;
 import com.hitesh_sahu.retailapp.model.entities.Product;
 import com.hitesh_sahu.retailapp.util.PreferenceHelper;
@@ -28,275 +35,290 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ECartHomeActivity extends AppCompatActivity {
 
-	private static final String TAG = ECartHomeActivity.class.getSimpleName();
+    AprioriFrequentItemsetGenerator<String> generator =
+            new AprioriFrequentItemsetGenerator<>();
 
-	private int itemCount = 0;
-	private BigDecimal checkoutAmount = new BigDecimal(BigInteger.ZERO);
-	private DrawerLayout mDrawerLayout;
+    private static final String TAG = ECartHomeActivity.class.getSimpleName();
 
-	private TextView checkOutAmount, itemCountTextView;
-	private TextView offerBanner;
-	private AVLoadingIndicatorView progressBar;
+    public static final double MINIMUM_SUPPORT = 0.1;
 
-	private NavigationView mNavigationView;
+    private int itemCount = 0;
+    private BigDecimal checkoutAmount = new BigDecimal(BigInteger.ZERO);
+    private DrawerLayout mDrawerLayout;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_ecart);
+    private TextView checkOutAmount, itemCountTextView;
+    private TextView offerBanner;
+    private AVLoadingIndicatorView progressBar;
 
-		GlobaDataHolder.getGlobaDataHolder().setShoppingList(
-				new TinyDB(getApplicationContext()).getListObject(
-						PreferenceHelper.MY_CART_LIST_LOCAL, Product.class));
-		
-		itemCount = GlobaDataHolder.getGlobaDataHolder().getShoppingList()
-				.size();
+    private NavigationView mNavigationView;
 
-	//	makeFakeVolleyJsonArrayRequest();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ecart);
 
-		offerBanner = ((TextView) findViewById(R.id.new_offers_banner));
+        CenterRepository.getCenterRepository().setListOfProductsInShoppingList(
+                new TinyDB(getApplicationContext()).getListObject(
+                        PreferenceHelper.MY_CART_LIST_LOCAL, Product.class));
 
-		itemCountTextView = (TextView) findViewById(R.id.item_count);
-		itemCountTextView.setSelected(true);
-		itemCountTextView.setText(String.valueOf(itemCount));
+        itemCount = CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
+                .size();
 
-		checkOutAmount = (TextView) findViewById(R.id.checkout_amount);
-		checkOutAmount.setSelected(true);
-		checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
-		offerBanner.setSelected(true);
+        //	makeFakeVolleyJsonArrayRequest();
 
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer);
-		mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        offerBanner = ((TextView) findViewById(R.id.new_offers_banner));
 
-		progressBar = (AVLoadingIndicatorView) findViewById(R.id.loading_bar);
+        itemCountTextView = (TextView) findViewById(R.id.item_count);
+        itemCountTextView.setSelected(true);
+        itemCountTextView.setText(String.valueOf(itemCount));
 
-		checkOutAmount.setOnClickListener(new OnClickListener() {
+        checkOutAmount = (TextView) findViewById(R.id.checkout_amount);
+        checkOutAmount.setSelected(true);
+        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+        offerBanner.setSelected(true);
 
-			@Override
-			public void onClick(View v) {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
 
-				Utils.vibrate(getApplicationContext());
+        progressBar = (AVLoadingIndicatorView) findViewById(R.id.loading_bar);
 
-				Utils.switchContent(R.id.frag_container,
-						Utils.SHOPPING_LIST_TAG, ECartHomeActivity.this,
-						AnimationType.SLIDE_UP);
+        checkOutAmount.setOnClickListener(new OnClickListener() {
 
-			}
-		});
-		
-	
-		if (itemCount != 0) {
-			for (Product product : GlobaDataHolder.getGlobaDataHolder()
-					.getShoppingList()) {
+            @Override
+            public void onClick(View v) {
 
-				updateCheckOutAmount(
-						BigDecimal.valueOf(Long.valueOf(product.getSellMRP())),
-						true);
-			}
-		}
+                Utils.vibrate(getApplicationContext());
 
-		findViewById(R.id.item_counter).setOnClickListener(
-				new OnClickListener() {
+                Utils.switchContent(R.id.frag_container,
+                        Utils.SHOPPING_LIST_TAG, ECartHomeActivity.this,
+                        AnimationType.SLIDE_UP);
 
-					@Override
-					public void onClick(View v) {
+            }
+        });
 
-						Utils.vibrate(getApplicationContext());
-						Utils.switchContent(R.id.frag_container,
-								Utils.SHOPPING_LIST_TAG,
-								ECartHomeActivity.this, AnimationType.SLIDE_UP);
 
-					}
-				});
+        if (itemCount != 0) {
+            for (Product product : CenterRepository.getCenterRepository()
+                    .getListOfProductsInShoppingList()) {
 
-		findViewById(R.id.checkout_envelop).setOnClickListener(
-				new OnClickListener() {
+                updateCheckOutAmount(
+                        BigDecimal.valueOf(Long.valueOf(product.getSellMRP())),
+                        true);
+            }
+        }
 
-					@Override
-					public void onClick(View v) {
+        findViewById(R.id.item_counter).setOnClickListener(
+                new OnClickListener() {
 
-						Utils.vibrate(getApplicationContext());
+                    @Override
+                    public void onClick(View v) {
 
-						Utils.switchContent(R.id.frag_container,
-								Utils.SHOPPING_LIST_TAG,
-								ECartHomeActivity.this, AnimationType.SLIDE_UP);
+                        Utils.vibrate(getApplicationContext());
+                        Utils.switchContent(R.id.frag_container,
+                                Utils.SHOPPING_LIST_TAG,
+                                ECartHomeActivity.this, AnimationType.SLIDE_UP);
 
-					}
-				});
+                    }
+                });
 
-		Utils.switchFragmentWithAnimation(R.id.frag_container,
-				new HomeFragment(), this, Utils.HOME_FRAGMENT,
-				AnimationType.SLIDE_UP);
-		
-		toggleBannerVisibility();
+        findViewById(R.id.checkout).setOnClickListener(
+                new OnClickListener() {
 
-		mNavigationView
-				.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-					@Override
-					public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    @Override
+                    public void onClick(View v) {
 
-						menuItem.setChecked(true);
-						switch (menuItem.getItemId()) {
-						case R.id.home:
+                        Utils.vibrate(getApplicationContext());
 
-							mDrawerLayout.closeDrawers();
+                        showPurchaseDialog();
 
-							Utils.switchContent(R.id.frag_container,
-									Utils.HOME_FRAGMENT,
-									ECartHomeActivity.this,
-									AnimationType.SLIDE_LEFT);
+                    }
+                });
 
-							return true;
+        Utils.switchFragmentWithAnimation(R.id.frag_container,
+                new HomeFragment(), this, Utils.HOME_FRAGMENT,
+                AnimationType.SLIDE_UP);
 
-						case R.id.my_cart:
+        toggleBannerVisibility();
 
-							mDrawerLayout.closeDrawers();
+        mNavigationView
+                .setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-							Utils.switchContent(R.id.frag_container,
-									Utils.SHOPPING_LIST_TAG,
-									ECartHomeActivity.this,
-									AnimationType.SLIDE_LEFT);
-							return true;
+                        menuItem.setChecked(true);
+                        switch (menuItem.getItemId()) {
+                            case R.id.home:
 
-						case R.id.contact_us:
+                                mDrawerLayout.closeDrawers();
 
-							mDrawerLayout.closeDrawers();
+                                Utils.switchContent(R.id.frag_container,
+                                        Utils.HOME_FRAGMENT,
+                                        ECartHomeActivity.this,
+                                        AnimationType.SLIDE_LEFT);
 
-							Utils.switchContent(R.id.frag_container,
-									Utils.CONTACT_US_FRAGMENT,
-									ECartHomeActivity.this,
-									AnimationType.SLIDE_LEFT);
-							return true;
+                                return true;
 
-						case R.id.settings:
+                            case R.id.my_cart:
 
-							mDrawerLayout.closeDrawers();
+                                mDrawerLayout.closeDrawers();
 
-							Utils.switchContent(R.id.frag_container,
-									Utils.SETTINGS_FRAGMENT_TAG,
-									ECartHomeActivity.this,
-									AnimationType.SLIDE_LEFT);
-							return true;
-						default:
-							return true;
-						}
-					}
-				});
+                                Utils.switchContent(R.id.frag_container,
+                                        Utils.SHOPPING_LIST_TAG,
+                                        ECartHomeActivity.this,
+                                        AnimationType.SLIDE_LEFT);
+                                return true;
 
-	}
+                            case R.id.apriori_result:
 
-	public AVLoadingIndicatorView getProgressBar() {
-		return progressBar;
-	}
+                                mDrawerLayout.closeDrawers();
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}
+                                startActivity(new Intent(ECartHomeActivity.this, APrioriResultActivity.class));
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+                                return true;
 
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
-	public void updateItemCount(boolean ifIncrement) {
-		if (ifIncrement) {
-			itemCount++;
-			itemCountTextView.setText(String.valueOf(itemCount));
+                            case R.id.contact_us:
 
-		} else {
-			itemCountTextView.setText(String.valueOf(itemCount <= 0 ? 0
-					: --itemCount));
-		}
+                                mDrawerLayout.closeDrawers();
 
-		toggleBannerVisibility();
-	}
+                                Utils.switchContent(R.id.frag_container,
+                                        Utils.CONTACT_US_FRAGMENT,
+                                        ECartHomeActivity.this,
+                                        AnimationType.SLIDE_LEFT);
+                                return true;
 
-	public void updateCheckOutAmount(BigDecimal amount, boolean increment) {
+                            case R.id.settings:
 
-		if (increment) {
-			checkoutAmount = checkoutAmount.add(amount);
-		} else {
-			if (checkoutAmount.signum() == 1)
-				checkoutAmount = checkoutAmount.subtract(amount);
-		}
+                                mDrawerLayout.closeDrawers();
 
-		checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
-	}
+                                Utils.switchContent(R.id.frag_container,
+                                        Utils.SETTINGS_FRAGMENT_TAG,
+                                        ECartHomeActivity.this,
+                                        AnimationType.SLIDE_LEFT);
+                                return true;
+                            default:
+                                return true;
+                        }
+                    }
+                });
 
-	@Override
-	protected void onPause() {
-		super.onPause();
+    }
 
-		// Store Shopping Cart in DB
-		new TinyDB(getApplicationContext()).putListObject(
-				PreferenceHelper.MY_CART_LIST_LOCAL, GlobaDataHolder
-						.getGlobaDataHolder().getShoppingList());
-	}
+    public AVLoadingIndicatorView getProgressBar() {
+        return progressBar;
+    }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-		// Show Offline Error Message
-		if (!Connectivity.isConnected(getApplicationContext())) {
-			final Dialog dialog = new Dialog(ECartHomeActivity.this);
-			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-			dialog.setContentView(R.layout.connection_dialog);
-			Button dialogButton = (Button) dialog
-					.findViewById(R.id.dialogButtonOK);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-			// if button is clicked, close the custom dialog
-			dialogButton.setOnClickListener(new OnClickListener() {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-				@Override
-				public void onClick(View v) {
-					dialog.dismiss();
+    public void updateItemCount(boolean ifIncrement) {
+        if (ifIncrement) {
+            itemCount++;
+            itemCountTextView.setText(String.valueOf(itemCount));
 
-				}
-			});
+        } else {
+            itemCountTextView.setText(String.valueOf(itemCount <= 0 ? 0
+                    : --itemCount));
+        }
 
-			dialog.show();
-		}
+        toggleBannerVisibility();
+    }
 
-		// Show Whats New Features If Requires
-		new WhatsNewDialog(this);
-	}
+    public void updateCheckOutAmount(BigDecimal amount, boolean increment) {
+
+        if (increment) {
+            checkoutAmount = checkoutAmount.add(amount);
+        } else {
+            if (checkoutAmount.signum() == 1)
+                checkoutAmount = checkoutAmount.subtract(amount);
+        }
+
+        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Store Shopping Cart in DB
+        new TinyDB(getApplicationContext()).putListObject(
+                PreferenceHelper.MY_CART_LIST_LOCAL, CenterRepository
+                        .getCenterRepository().getListOfProductsInShoppingList());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Show Offline Error Message
+        if (!Connectivity.isConnected(getApplicationContext())) {
+            final Dialog dialog = new Dialog(ECartHomeActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.connection_dialog);
+            Button dialogButton = (Button) dialog
+                    .findViewById(R.id.dialogButtonOK);
+
+            // if button is clicked, close the custom dialog
+            dialogButton.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+
+                }
+            });
+
+            dialog.show();
+        }
+
+        // Show Whats New Features If Requires
+        new WhatsNewDialog(this);
+    }
+
+    /*
+     * Toggles Between Offer Banner and Checkout Amount. If Cart is Empty SHow
+     * Banner else display total amount and item count
+     */
+    public void toggleBannerVisibility() {
+        if (itemCount == 0) {
+
+            findViewById(R.id.checkout_item_root).setVisibility(View.GONE);
+            findViewById(R.id.new_offers_banner).setVisibility(View.VISIBLE);
+
+        } else {
+            findViewById(R.id.checkout_item_root).setVisibility(View.VISIBLE);
+            findViewById(R.id.new_offers_banner).setVisibility(View.GONE);
+        }
+    }
+
+    /*
+     * get total checkout amount
+     */
+    public BigDecimal getCheckoutAmount() {
+        return checkoutAmount;
+    }
 
 	/*
-	 * Toggles Between Offer Banner and Checkout Amount. If Cart is Empty SHow
-	 * Banner else display total amount and item count
-	 */
-	public void toggleBannerVisibility() {
-		if (itemCount == 0) {
-
-			findViewById(R.id.checkout_item_root).setVisibility(View.GONE);
-			findViewById(R.id.new_offers_banner).setVisibility(View.VISIBLE);
-
-		} else {
-			findViewById(R.id.checkout_item_root).setVisibility(View.VISIBLE);
-			findViewById(R.id.new_offers_banner).setVisibility(View.GONE);
-		}
-	}
-
-	/*
-	 * get total checkout amount
-	 */
-	public BigDecimal getCheckoutAmount() {
-		return checkoutAmount;
-	}
-
-	/*
-	 * Makes fake Volley request by adding request in fake Volley Queue and
+     * Makes fake Volley request by adding request in fake Volley Queue and
 	 * return mock JSON String plese visit
 	 * com.hitesh_sahu.retailapp.domain.mock.FakeHttpStack and
 	 * FakeRequestQueue queu
@@ -334,18 +356,97 @@ public class ECartHomeActivity extends AppCompatActivity {
 //		AppController.getInstance().addToFakeRequestQueue(req);
 //	}
 
-	/*
-	 * Get Number of items in cart
-	 */
-	public int getItemCount() {
-		return itemCount;
-	}
+    /*
+     * Get Number of items in cart
+     */
+    public int getItemCount() {
+        return itemCount;
+    }
 
-	/*
-	 * Get Navigation drawer
-	 */
-	public DrawerLayout getmDrawerLayout() {
-		return mDrawerLayout;
-	}
+    /*
+     * Get Navigation drawer
+     */
+    public DrawerLayout getmDrawerLayout() {
+        return mDrawerLayout;
+    }
+
+
+    public void showPurchaseDialog() {
+
+        AlertDialog.Builder exitScreenDialog = new AlertDialog.Builder(ECartHomeActivity.this, R.style.PauseDialog);
+
+        exitScreenDialog.setTitle("Order Confirmation")
+                .setMessage("Would you like to place this order ?");
+        exitScreenDialog.setCancelable(true);
+
+        exitScreenDialog.setPositiveButton(
+                "Place Order",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //finish();
+                        dialog.cancel();
+
+                        ArrayList<String> productId = new ArrayList<String>();
+
+                        for (Product productFromShoppingList : CenterRepository.getCenterRepository().getListOfProductsInShoppingList()) {
+
+                            //add product ids to array
+                            productId.add(productFromShoppingList.getProductId());
+                        }
+
+                        //pass product id array to Apriori ALGO
+                        CenterRepository.getCenterRepository()
+                                .addToItemSetList(new HashSet<>(productId));
+
+                        //Do Minning
+                        FrequentItemsetData<String> data = generator.generate(
+                                CenterRepository.getCenterRepository().getItemSetList()
+                                , MINIMUM_SUPPORT);
+
+                        for (Set<String> itemset : data.getFrequentItemsetList()) {
+                            Log.e("APriori", "Item Set : " +
+                                    itemset + "Support : " +
+                                    data.getSupport(itemset));
+                        }
+
+                        //clear all list item
+                        CenterRepository.getCenterRepository().getListOfProductsInShoppingList().clear();
+
+                        toggleBannerVisibility();
+
+                        itemCount = 0;
+                        itemCountTextView.setText(String.valueOf(0));
+                        checkoutAmount = new BigDecimal(BigInteger.ZERO);
+                        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+
+                    }
+                });
+
+        exitScreenDialog.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        exitScreenDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Snackbar.make(ECartHomeActivity.this.getWindow().getDecorView().findViewById(android.R.id.content)
+                        , "Order Placed Successfully, Happy Shopping !!", Snackbar.LENGTH_LONG)
+                        .setAction("View Apriori Output", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(ECartHomeActivity.this, APrioriResultActivity.class));
+                            }
+                        }).show();
+            }
+        });
+
+        AlertDialog alert11 = exitScreenDialog.create();
+        alert11.show();
+
+    }
 
 }

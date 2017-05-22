@@ -18,12 +18,12 @@ import android.view.ViewGroup;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.hitesh_sahu.retailapp.R;
 import com.hitesh_sahu.retailapp.domain.mock.FakeWebServer;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.util.AppConstants;
 import com.hitesh_sahu.retailapp.util.Utils;
 import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
-import com.hitesh_sahu.retailapp.view.adapter.ProductOverViewPagerAdapter;
+import com.hitesh_sahu.retailapp.view.adapter.ProductsInCategoryPagerAdapter;
 
 import java.util.Set;
 
@@ -237,9 +237,9 @@ public class ProductOverviewFragment extends Fragment {
 	}
 
 	private void setupViewPager(ViewPager viewPager) {
-		ProductOverViewPagerAdapter adapter = new ProductOverViewPagerAdapter(
+		ProductsInCategoryPagerAdapter adapter = new ProductsInCategoryPagerAdapter(
 				getActivity().getSupportFragmentManager());
-		Set<String> keys = GlobaDataHolder.getGlobaDataHolder().getProductMap()
+		Set<String> keys = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 				.keySet();
 
 		for (String string : keys) {

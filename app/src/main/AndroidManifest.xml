@@ -25,6 +25,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".view.activities.APrioriResultActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
         <!-- Splash Activity -->
         <activity
             android:name=".view.activities.SplashActivity"

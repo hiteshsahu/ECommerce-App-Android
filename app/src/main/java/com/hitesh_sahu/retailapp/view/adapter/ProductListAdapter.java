@@ -15,7 +15,7 @@ import android.widget.TextView.BufferType;
 
 import com.bumptech.glide.Glide;
 import com.hitesh_sahu.retailapp.R;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.Money;
 import com.hitesh_sahu.retailapp.model.entities.Product;
 import com.hitesh_sahu.retailapp.util.ColorGenerator;
@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *  @author Hitesh Sahu (hiteshsahu.com)
+ */
 public class ProductListAdapter extends
 		RecyclerView.Adapter<ProductListAdapter.VersionViewHolder> implements
 		ItemTouchHelperAdapter {
@@ -51,12 +54,12 @@ public class ProductListAdapter extends
 
 		if (isCartlist) {
 
-			productList = GlobaDataHolder.getGlobaDataHolder()
-					.getShoppingList();
+			productList = CenterRepository.getCenterRepository()
+					.getListOfProductsInShoppingList();
 
 		} else {
 
-			productList = GlobaDataHolder.getGlobaDataHolder().getProductMap()
+			productList = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
 					.get(subcategoryKey);
 		}
 
@@ -127,13 +130,13 @@ public class ProductListAdapter extends
 
 						
 						//if current object is lready in shopping list
-						if (GlobaDataHolder.getGlobaDataHolder()
-								.getShoppingList().contains(tempObj)) {
+						if (CenterRepository.getCenterRepository()
+								.getListOfProductsInShoppingList().contains(tempObj)) {
 
 							
 							//get position of current item in shopping list
-							int indexOfTempInShopingList = GlobaDataHolder
-									.getGlobaDataHolder().getShoppingList()
+							int indexOfTempInShopingList = CenterRepository
+									.getCenterRepository().getListOfProductsInShoppingList()
 									.indexOf(tempObj);
 							
 							// increase quantity of current item in shopping list 
@@ -146,9 +149,9 @@ public class ProductListAdapter extends
 
 							
 							// update quanity in shopping list
-							GlobaDataHolder
-									.getGlobaDataHolder()
-									.getShoppingList()
+							CenterRepository
+									.getCenterRepository()
+									.getListOfProductsInShoppingList()
 									.get(indexOfTempInShopingList)
 									.setQuantity(
 											String.valueOf(Integer
@@ -176,8 +179,8 @@ public class ProductListAdapter extends
 
 							holder.quanitity.setText(tempObj.getQuantity());
 
-							GlobaDataHolder.getGlobaDataHolder()
-									.getShoppingList().add(tempObj);
+							CenterRepository.getCenterRepository()
+									.getListOfProductsInShoppingList().add(tempObj);
 
 							((ECartHomeActivity) getContext()).updateCheckOutAmount(
 									BigDecimal
@@ -201,18 +204,18 @@ public class ProductListAdapter extends
 
 				Product tempObj = (productList).get(position);
 
-				if (GlobaDataHolder.getGlobaDataHolder().getShoppingList()
+				if (CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
 						.contains(tempObj)) {
 
-					int indexOfTempInShopingList = GlobaDataHolder
-							.getGlobaDataHolder().getShoppingList()
+					int indexOfTempInShopingList = CenterRepository
+							.getCenterRepository().getListOfProductsInShoppingList()
 							.indexOf(tempObj);
 
 					if (Integer.valueOf(tempObj.getQuantity()) != 0) {
 
-						GlobaDataHolder
-								.getGlobaDataHolder()
-								.getShoppingList()
+						CenterRepository
+								.getCenterRepository()
+								.getListOfProductsInShoppingList()
 								.get(indexOfTempInShopingList)
 								.setQuantity(
 										String.valueOf(Integer.valueOf(tempObj
@@ -223,18 +226,18 @@ public class ProductListAdapter extends
 										.get(position).getSellMRP())),
 								false);
 
-						holder.quanitity.setText(GlobaDataHolder
-								.getGlobaDataHolder().getShoppingList()
+						holder.quanitity.setText(CenterRepository
+								.getCenterRepository().getListOfProductsInShoppingList()
 								.get(indexOfTempInShopingList).getQuantity());
 
 						Utils.vibrate(getContext());
 
-						if (Integer.valueOf(GlobaDataHolder
-								.getGlobaDataHolder().getShoppingList()
+						if (Integer.valueOf(CenterRepository
+								.getCenterRepository().getListOfProductsInShoppingList()
 								.get(indexOfTempInShopingList).getQuantity()) == 0) {
 
-							GlobaDataHolder.getGlobaDataHolder()
-									.getShoppingList()
+							CenterRepository.getCenterRepository()
+									.getListOfProductsInShoppingList()
 									.remove(indexOfTempInShopingList);
 
 							notifyDataSetChanged();

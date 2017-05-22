@@ -34,7 +34,7 @@ import android.widget.TextView.BufferType;
 
 import com.bumptech.glide.Glide;
 import com.hitesh_sahu.retailapp.R;
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.Money;
 import com.hitesh_sahu.retailapp.model.entities.Product;
 import com.hitesh_sahu.retailapp.util.ColorGenerator;
@@ -57,7 +57,7 @@ import java.util.List;
  * respond to move and dismiss events from a
  * {@link android.support.v7.widget.helper.ItemTouchHelper}.
  *
- * @author Paul Burke (ipaulpro)
+ * @author Hitesh Sahu (hiteshsahu.com)
  */
 public class ShoppingListAdapter extends
 		RecyclerView.Adapter<ShoppingListAdapter.ItemViewHolder> implements
@@ -84,7 +84,7 @@ public class ShoppingListAdapter extends
 
 		this.context = context;
 
-		productList = GlobaDataHolder.getGlobaDataHolder().getShoppingList();
+		productList = CenterRepository.getCenterRepository().getListOfProductsInShoppingList();
 	}
 
 	@Override
@@ -128,8 +128,8 @@ public class ShoppingListAdapter extends
 
 		ImageUrl = productList.get(position).getImageURL();
 
-		holder.quanitity.setText(GlobaDataHolder.getGlobaDataHolder()
-				.getShoppingList().get(position).getQuantity());
+		holder.quanitity.setText(CenterRepository.getCenterRepository()
+				.getListOfProductsInShoppingList().get(position).getQuantity());
 
 		Glide.with(context).load(ImageUrl).placeholder(drawable)
 				.error(drawable).animate(R.anim.base_slide_right_in)
@@ -151,25 +151,25 @@ public class ShoppingListAdapter extends
 			@Override
 			public void onClick(View v) {
 
-				GlobaDataHolder
-						.getGlobaDataHolder()
-						.getShoppingList()
+				CenterRepository
+						.getCenterRepository()
+						.getListOfProductsInShoppingList()
 						.get(position)
 						.setQuantity(
 								String.valueOf(
 
-								Integer.valueOf(GlobaDataHolder
-										.getGlobaDataHolder().getShoppingList()
+								Integer.valueOf(CenterRepository
+										.getCenterRepository().getListOfProductsInShoppingList()
 										.get(position).getQuantity()) + 1));
 
-				holder.quanitity.setText(GlobaDataHolder.getGlobaDataHolder()
-						.getShoppingList().get(position).getQuantity());
+				holder.quanitity.setText(CenterRepository.getCenterRepository()
+						.getListOfProductsInShoppingList().get(position).getQuantity());
 
 				Utils.vibrate(context);
 
 				((ECartHomeActivity) context).updateCheckOutAmount(
-						BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-								.getGlobaDataHolder().getShoppingList()
+						BigDecimal.valueOf(Long.valueOf(CenterRepository
+								.getCenterRepository().getListOfProductsInShoppingList()
 								.get(position).getSellMRP())), true);
 
 			}
@@ -180,43 +180,43 @@ public class ShoppingListAdapter extends
 			@Override
 			public void onClick(View v) {
 
-				if (Integer.valueOf(GlobaDataHolder.getGlobaDataHolder()
-						.getShoppingList().get(position).getQuantity()) > 2) {
+				if (Integer.valueOf(CenterRepository.getCenterRepository()
+						.getListOfProductsInShoppingList().get(position).getQuantity()) > 2) {
 
-					GlobaDataHolder
-							.getGlobaDataHolder()
-							.getShoppingList()
+					CenterRepository
+							.getCenterRepository()
+							.getListOfProductsInShoppingList()
 							.get(position)
 							.setQuantity(
 									String.valueOf(
 
-									Integer.valueOf(GlobaDataHolder
-											.getGlobaDataHolder()
-											.getShoppingList().get(position)
+									Integer.valueOf(CenterRepository
+											.getCenterRepository()
+											.getListOfProductsInShoppingList().get(position)
 											.getQuantity()) - 1));
 
-					holder.quanitity.setText(GlobaDataHolder
-							.getGlobaDataHolder().getShoppingList()
+					holder.quanitity.setText(CenterRepository
+							.getCenterRepository().getListOfProductsInShoppingList()
 							.get(position).getQuantity());
 
 					((ECartHomeActivity) context).updateCheckOutAmount(
-							BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-									.getGlobaDataHolder().getShoppingList()
+							BigDecimal.valueOf(Long.valueOf(CenterRepository
+									.getCenterRepository().getListOfProductsInShoppingList()
 									.get(position).getSellMRP())), false);
 
 					Utils.vibrate(context);
 				}
 
-				else if (Integer.valueOf(GlobaDataHolder.getGlobaDataHolder()
-						.getShoppingList().get(position).getQuantity()) == 1) {
+				else if (Integer.valueOf(CenterRepository.getCenterRepository()
+						.getListOfProductsInShoppingList().get(position).getQuantity()) == 1) {
 					((ECartHomeActivity) context).updateItemCount(false);
 
 					((ECartHomeActivity) context).updateCheckOutAmount(
-							BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-									.getGlobaDataHolder().getShoppingList()
+							BigDecimal.valueOf(Long.valueOf(CenterRepository
+									.getCenterRepository().getListOfProductsInShoppingList()
 									.get(position).getSellMRP())), false);
 
-					GlobaDataHolder.getGlobaDataHolder().getShoppingList()
+					CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
 							.remove(position);
 
 					if (Integer.valueOf(((ECartHomeActivity) context)
@@ -240,11 +240,11 @@ public class ShoppingListAdapter extends
 		((ECartHomeActivity) context).updateItemCount(false);
 
 		((ECartHomeActivity) context).updateCheckOutAmount(
-				BigDecimal.valueOf(Long.valueOf(GlobaDataHolder
-						.getGlobaDataHolder().getShoppingList().get(position)
+				BigDecimal.valueOf(Long.valueOf(CenterRepository
+						.getCenterRepository().getListOfProductsInShoppingList().get(position)
 						.getSellMRP())), false);
 
-		GlobaDataHolder.getGlobaDataHolder().getShoppingList().remove(position);
+		CenterRepository.getCenterRepository().getListOfProductsInShoppingList().remove(position);
 
 		if (Integer.valueOf(((ECartHomeActivity) context).getItemCount()) == 0) {
 

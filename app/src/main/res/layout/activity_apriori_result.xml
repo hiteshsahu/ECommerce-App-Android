@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/accent"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/accent_700"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Apriori Algo Result"
+            app:titleTextColor="#FFF" />
+
+        <FrameLayout
+            android:id="@+id/content_all_feedbacks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_gravity="center"
+            android:background="#FFF"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="view.activities.AllFeedbacksActivity">
+
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/apriori_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/loading_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:indicator="LineScaleParty"
+                app:indicator_color="@color/accent_pressed" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

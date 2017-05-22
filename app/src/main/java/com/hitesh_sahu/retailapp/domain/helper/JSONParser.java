@@ -2,7 +2,7 @@ package com.hitesh_sahu.retailapp.domain.helper;
 
 import android.util.Log;
 
-import com.hitesh_sahu.retailapp.model.GlobaDataHolder;
+import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.model.entities.Product;
 import com.hitesh_sahu.retailapp.model.entities.ProductCategoryModel;
 
@@ -41,12 +41,12 @@ public class JSONParser {
 
                         JSONArray categoryArray = new JSONArray(jsonResponse);
 
-                        GlobaDataHolder.getGlobaDataHolder().getListOfCategory()
+                        CenterRepository.getCenterRepository().getListOfCategory()
                                 .clear();
 
                         for (int i = 0; i < categoryArray.length(); i++) {
-                            GlobaDataHolder
-                                    .getGlobaDataHolder()
+                            CenterRepository
+                                    .getCenterRepository()
                                     .getListOfCategory()
                                     .add(new ProductCategoryModel(categoryArray
                                             .getJSONObject(i).getString(
@@ -70,29 +70,29 @@ public class JSONParser {
 
                         JSONObject productMapObject = new JSONObject(jsonResponse);
 
-                        GlobaDataHolder.getGlobaDataHolder().getProductMap()
+                        CenterRepository.getCenterRepository().getMapOfProductsInCategory()
                                 .clear();
 
-                        for (int categoryCount = 0; categoryCount < GlobaDataHolder
-                                .getGlobaDataHolder().getListOfCategory().size(); categoryCount++) {
+                        for (int categoryCount = 0; categoryCount < CenterRepository
+                                .getCenterRepository().getListOfCategory().size(); categoryCount++) {
 
                             ArrayList<Product> tempProductList = new ArrayList<Product>();
 
                             // get json array for stored category
 
-                            if (productMapObject.optJSONArray(GlobaDataHolder
-                                    .getGlobaDataHolder().getListOfCategory()
+                            if (productMapObject.optJSONArray(CenterRepository
+                                    .getCenterRepository().getListOfCategory()
                                     .get(categoryCount).getProductCategoryName()) != null) {
 
                                 JSONArray productListWithCategory = productMapObject
-                                        .getJSONArray(GlobaDataHolder
-                                                .getGlobaDataHolder()
+                                        .getJSONArray(CenterRepository
+                                                .getCenterRepository()
                                                 .getListOfCategory()
                                                 .get(categoryCount)
                                                 .getProductCategoryName());
 
-                                System.out.println(GlobaDataHolder
-                                        .getGlobaDataHolder().getListOfCategory()
+                                System.out.println(CenterRepository
+                                        .getCenterRepository().getListOfCategory()
                                         .get(categoryCount)
                                         .getProductCategoryName());
 
@@ -145,9 +145,9 @@ public class JSONParser {
 
                                 }
                             }
-                            GlobaDataHolder
-                                    .getGlobaDataHolder()
-                                    .getProductMap()
+                            CenterRepository
+                                    .getCenterRepository()
+                                    .getMapOfProductsInCategory()
                                     .put(String.valueOf(categoryCount),
                                             tempProductList);
 
@@ -165,35 +165,35 @@ public class JSONParser {
                         // JSONObject productMapObject = new
                         // JSONObject(jsonResponse);
 
-                        GlobaDataHolder.getGlobaDataHolder().getShoppingList()
+                        CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
                                 .clear();
 
                         JSONArray mycartArray = new JSONArray(jsonResponse);
 
                         //
                         // for (int categoryCount = 0; categoryCount <
-                        // GlobaDataHolder
-                        // .getGlobaDataHolder().getListOfCategory().size();
+                        // CenterRepository
+                        // .getCenterRepository().getListOfCategory().size();
                         // categoryCount++) {
                         //
                         ArrayList<Product> tempProductList = new ArrayList<Product>();
 
                         // get json array for stored category
 
-                        // if (productMapObject.optJSONArray(GlobaDataHolder
-                        // .getGlobaDataHolder().getListOfCategory()
+                        // if (productMapObject.optJSONArray(CenterRepository
+                        // .getCenterRepository().getListOfCategory()
                         // .get(categoryCount).getProductCategoryName()) != null) {
                         //
 
                         // JSONArray productListWithCategory = productMapObject
-                        // .getJSONArray(GlobaDataHolder
-                        // .getGlobaDataHolder()
+                        // .getJSONArray(CenterRepository
+                        // .getCenterRepository()
                         // .getListOfCategory()
                         // .get(categoryCount)
                         // .getProductCategoryName());
                         //
-                        // System.out.println(GlobaDataHolder
-                        // .getGlobaDataHolder().getListOfCategory()
+                        // System.out.println(CenterRepository
+                        // .getCenterRepository().getListOfCategory()
                         // .get(categoryCount)
                         // .getProductCategoryName());
 
@@ -208,9 +208,9 @@ public class JSONParser {
 
                             if (productListObjecty.length() != 0) {
 
-                                GlobaDataHolder
-                                        .getGlobaDataHolder()
-                                        .getShoppingList().add(new Product(productListObjecty
+                                CenterRepository
+                                        .getCenterRepository()
+                                        .getListOfProductsInShoppingList().add(new Product(productListObjecty
 
                                         .getString("productName"), productListObjecty
 
@@ -240,8 +240,8 @@ public class JSONParser {
 
                         }
                         // }
-//					GlobaDataHolder
-//							.getGlobaDataHolder()
+//					CenterRepository
+//							.getCenterRepository()
 //							.getShppingItemList()
 //							.put( tempProductList);
 

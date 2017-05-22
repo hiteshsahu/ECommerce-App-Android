@@ -1,6 +1,5 @@
 package com.hitesh_sahu.retailapp.view.fragment;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -25,98 +24,87 @@ import com.hitesh_sahu.retailapp.domain.api.ProductCategoryLoaderTask;
 import com.hitesh_sahu.retailapp.util.Utils;
 import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
-import com.twotoasters.jazzylistview.recyclerview.JazzyRecyclerViewScrollListener;
 
-@SuppressLint("ResourceAsColor")
 public class HomeFragment extends Fragment {
-	CollapsingToolbarLayout collapsingToolbar;
-	RecyclerView recyclerView;
-	int mutedColor = R.attr.colorPrimary;
-	//CategoryListAdapter simpleRecyclerAdapter;
+    private CollapsingToolbarLayout collapsingToolbar;
+    private RecyclerView recyclerView;
+    int mutedColor = R.attr.colorPrimary;
 
-	/** The double back to exit pressed once. */
-	private boolean doubleBackToExitPressedOnce;
+    /**
+     * The double back to exit pressed once.
+     */
+    private boolean doubleBackToExitPressedOnce;
+    private Handler mHandler = new Handler();
+    private final Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            doubleBackToExitPressedOnce = false;
+        }
+    };
 
-	/** The m handler. */
-	private Handler mHandler = new Handler();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_product_category, container, false);
 
-	/** The m runnable. */
-	private final Runnable mRunnable = new Runnable() {
-		@Override
-		public void run() {
-			doubleBackToExitPressedOnce = false;
-		}
-	};
+        view.findViewById(R.id.search_item).setOnClickListener(
+                new OnClickListener() {
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.frag_product_category, container, false);
+                    @Override
+                    public void onClick(View v) {
 
-		view.findViewById(R.id.search_item).setOnClickListener(
-				new OnClickListener() {
+                        Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                new SearchProductFragment(),
+                                ((ECartHomeActivity) getActivity()), null,
+                                AnimationType.SLIDE_UP);
 
-					@Override
-					public void onClick(View v) {
+                    }
+                });
 
-						Utils.switchFragmentWithAnimation(R.id.frag_container,
-								new SearchProductFragment(),
-								((ECartHomeActivity) getActivity()), null,
-								AnimationType.SLIDE_UP);
+        final Toolbar toolbar = (Toolbar) view.findViewById(R.id.anim_toolbar);
+        ((ECartHomeActivity) getActivity()).setSupportActionBar(toolbar);
+        ((ECartHomeActivity) getActivity()).getSupportActionBar()
+                .setDisplayHomeAsUpEnabled(true);
 
-					}
-				});
+        toolbar.setNavigationIcon(R.drawable.ic_drawer);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ECartHomeActivity) getActivity()).getmDrawerLayout()
+                        .openDrawer(GravityCompat.START);
+            }
+        });
 
-		final Toolbar toolbar = (Toolbar) view.findViewById(R.id.anim_toolbar);
-		((ECartHomeActivity) getActivity()).setSupportActionBar(toolbar);
-		((ECartHomeActivity) getActivity()).getSupportActionBar()
-				.setDisplayHomeAsUpEnabled(true);
+        collapsingToolbar = (CollapsingToolbarLayout) view
+                .findViewById(R.id.collapsing_toolbar);
 
-		toolbar.setNavigationIcon(R.drawable.ic_drawer);
-		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((ECartHomeActivity) getActivity()).getmDrawerLayout()
-						.openDrawer(GravityCompat.START);
-			}
-		});
+        collapsingToolbar.setTitle("Categories");
 
-		collapsingToolbar = (CollapsingToolbarLayout) view
-				.findViewById(R.id.collapsing_toolbar);
+        ImageView header = (ImageView) view.findViewById(R.id.header);
 
-		collapsingToolbar.setTitle("Categories");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.header);
 
-		ImageView header = (ImageView) view.findViewById(R.id.header);
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @SuppressWarnings("ResourceType")
+            @Override
+            public void onGenerated(Palette palette) {
 
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.header);
+                mutedColor = palette.getMutedColor(R.color.primary_500);
+                collapsingToolbar.setContentScrimColor(mutedColor);
+                collapsingToolbar.setStatusBarScrimColor(R.color.black_trans80);
+            }
+        });
 
-		Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-			@SuppressWarnings("ResourceType")
-			@Override
-			public void onGenerated(Palette palette) {
+        recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
 
-				mutedColor = palette.getMutedColor(R.color.primary_500);
-				collapsingToolbar.setContentScrimColor(mutedColor);
-				collapsingToolbar.setStatusBarScrimColor(R.color.black_trans80);
-			}
-		});
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-		recyclerView = (RecyclerView) view.findViewById(R.id.scrollableview);
+        new ProductCategoryLoaderTask(recyclerView, getActivity()).execute();
 
-		recyclerView.setHasFixedSize(true);
-		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-				getActivity());
-		recyclerView.setLayoutManager(linearLayoutManager);
-
-		JazzyRecyclerViewScrollListener jazzyScrollListener = new JazzyRecyclerViewScrollListener();
-		recyclerView.setOnScrollListener(jazzyScrollListener);
-
-		jazzyScrollListener.setTransitionEffect(4);
-		
-		
-		new ProductCategoryLoaderTask(recyclerView,getActivity()).execute();
-		
 //
 //		if (simpleRecyclerAdapter == null) {
 //			simpleRecyclerAdapter = new CategoryListAdapter(getActivity());
@@ -129,10 +117,10 @@ public class HomeFragment extends Fragment {
 //						public void onItemClick(View view, int position) {
 //
 //							if (position == 0) {
-//								GlobaDataHolder.getGlobaDataHolder()
+//								CenterRepository.getCenterRepository()
 //										.getAllElectronics();
 //							} else if (position == 1) {
-//								GlobaDataHolder.getGlobaDataHolder()
+//								CenterRepository.getCenterRepository()
 //										.getAllFurnitures();
 //							}
 //							Utils.switchFragmentWithAnimation(
@@ -145,42 +133,42 @@ public class HomeFragment extends Fragment {
 //					});
 //		}
 
-		view.setFocusableInTouchMode(true);
-		view.requestFocus();
-		view.setOnKeyListener(new View.OnKeyListener() {
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
 
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-				if (event.getAction() == KeyEvent.ACTION_UP
-						&& keyCode == KeyEvent.KEYCODE_BACK) {
+                if (event.getAction() == KeyEvent.ACTION_UP
+                        && keyCode == KeyEvent.KEYCODE_BACK) {
 
-					if (doubleBackToExitPressedOnce) {
-						// super.onBackPressed();
+                    if (doubleBackToExitPressedOnce) {
+                        // super.onBackPressed();
 
-						if (mHandler != null) {
-							mHandler.removeCallbacks(mRunnable);
-						}
+                        if (mHandler != null) {
+                            mHandler.removeCallbacks(mRunnable);
+                        }
 
-						getActivity().finish();
+                        getActivity().finish();
 
-						return true;
-					}
+                        return true;
+                    }
 
-					doubleBackToExitPressedOnce = true;
-					Toast.makeText(getActivity(),
-							"Please click BACK again to exit",
-							Toast.LENGTH_SHORT).show();
+                    doubleBackToExitPressedOnce = true;
+                    Toast.makeText(getActivity(),
+                            "Please click BACK again to exit",
+                            Toast.LENGTH_SHORT).show();
 
-					mHandler.postDelayed(mRunnable, 2000);
+                    mHandler.postDelayed(mRunnable, 2000);
 
-				}
-				return true;
-			}
-		});
+                }
+                return true;
+            }
+        });
 
-		return view;
+        return view;
 
-	}
+    }
 
 }
