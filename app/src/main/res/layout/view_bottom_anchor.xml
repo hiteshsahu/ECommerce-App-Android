@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/control_overview"
     android:layout_width="match_parent"
@@ -6,7 +14,7 @@
     android:layout_alignParentBottom="true"
     android:layout_gravity="center_horizontal|top"
     android:background="@color/background"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
@@ -31,8 +39,7 @@
         android:text="@string/offer_banner"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:visibility="gone" >
-    </TextView>
+        android:visibility="gone"></TextView>
 
     <RelativeLayout
         android:id="@+id/checkout_item_root"
@@ -41,7 +48,7 @@
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:weightSum="100" >
+        android:weightSum="100">
 
         <FrameLayout
             android:id="@+id/item_counter"
@@ -49,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_weight="20" >
+            android:layout_weight="20">
 
             <ImageView
                 android:layout_width="50dp"
@@ -93,7 +100,7 @@
             android:id="@+id/checkout_envelop"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true" >
+            android:layout_alignParentRight="true">
 
             <TextView
                 android:id="@+id/checkout"
