@@ -1,4 +1,13 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.adapter;
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
@@ -18,7 +27,6 @@ public interface ItemTouchHelperAdapter {
      *
      * @param fromPosition The start position of the moved item.
      * @param toPosition   Then resolved position of the moved item.
-     *
      * @see RecyclerView#getAdapterPositionFor(RecyclerView.ViewHolder)
      * @see RecyclerView.ViewHolder#getAdapterPosition()
      */
@@ -32,7 +40,6 @@ public interface ItemTouchHelperAdapter {
      * adjusting the underlying data to reflect this removal.
      *
      * @param position The position of the item dismissed.
-     *
      * @see RecyclerView#getAdapterPositionFor(RecyclerView.ViewHolder)
      * @see RecyclerView.ViewHolder#getAdapterPosition()
      */

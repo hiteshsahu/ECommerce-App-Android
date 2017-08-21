@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.activities;
 
 import android.animation.Animator;
@@ -42,6 +50,7 @@ public class APrioriResultActivity extends AppCompatActivity implements OnChartV
 
     List<BarEntry> entries = new ArrayList<>();
     List<String> setEntries = new ArrayList<>();
+    Toast mCurrentToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +147,35 @@ public class APrioriResultActivity extends AppCompatActivity implements OnChartV
         }
     }
 
+//    private void generateTestData() {
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("b", "c", "d")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "c", "d", "e")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "d", "e")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "d")));
+//        CenterRepository.getInstance().getAprioriItemSetCollection()
+//                .addToItemSetList(new HashSet<>(Arrays.asList("b", "c", "e")));
+//    }
+
     private void drawChart() {
 
         //APRIORI RESULT SET
@@ -177,37 +215,6 @@ public class APrioriResultActivity extends AppCompatActivity implements OnChartV
         barChart.animateY(700);
 
     }
-
-//    private void generateTestData() {
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("b", "c", "d")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "c", "d", "e")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "d", "e")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c", "d")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "c")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("a", "b", "d")));
-//        CenterRepository.getInstance().getAprioriItemSetCollection()
-//                .addToItemSetList(new HashSet<>(Arrays.asList("b", "c", "e")));
-//    }
-
-    Toast mCurrentToast;
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {

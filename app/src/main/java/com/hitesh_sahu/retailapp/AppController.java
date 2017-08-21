@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp;
 
 import android.app.Application;
@@ -19,6 +27,10 @@ public class AppController extends Application {
 
     private static AppController mInstance;
 
+    public static synchronized AppController getInstance() {
+        return mInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -29,10 +41,6 @@ public class AppController extends Application {
                 this, PreferenceHelper.SUBMIT_LOGS, true)) {
             ACRA.init(this);
         }
-    }
-
-    public static synchronized AppController getInstance() {
-        return mInstance;
     }
 
 }

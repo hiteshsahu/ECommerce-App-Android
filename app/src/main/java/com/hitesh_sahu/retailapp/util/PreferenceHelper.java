@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 /**
  *
  */
@@ -11,15 +19,13 @@ import android.preference.PreferenceManager;
  */
 public class PreferenceHelper {
 
-    private static PreferenceHelper preferenceHelperInstance = new PreferenceHelper();
-
-    private static final String USER_LOGGED_IN = "isLoggedIn";
     public final static String FIRST_TIME = "FirstTime";
     public final static String WHATS_NEW_LAST_SHOWN = "whats_new_last_shown";
     public final static String SUBMIT_LOGS = "CrashLogs";
-
     // Handle Local Caching of data for responsiveness
     public static final String MY_CART_LIST_LOCAL = "MyCartItems";
+    private static final String USER_LOGGED_IN = "isLoggedIn";
+    private static PreferenceHelper preferenceHelperInstance = new PreferenceHelper();
 
     private PreferenceHelper() {
     }

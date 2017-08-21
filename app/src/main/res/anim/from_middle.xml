@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<scale
-    xmlns:android="http://schemas.android.com/apk/res/android"
-	android:fromXScale="0.0" android:toXScale="1.0"
-	android:pivotX="0%" 
-	android:fromYScale="1.0" android:toYScale="1.0"
-	android:pivotY="50%"         
-	android:duration="250" />
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="250"
+    android:fromXScale="0.0"
+    android:fromYScale="1.0"
+    android:pivotX="0%"
+    android:pivotY="50%"
+    android:toXScale="1.0"
+    android:toYScale="1.0" />

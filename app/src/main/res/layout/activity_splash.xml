@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:custom="http://schemas.android.com/apk/res/com.thoughtworks.retailshop.util"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_blue_500"
-    android:gravity="center" >
+    android:gravity="center">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" >
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/logo_img"
@@ -21,8 +27,7 @@
             android:layout_toRightOf="@+id/pro_txt"
             android:src="@drawable/app_icon" />
 
-        <com.hitesh_sahu.retailapp.util.FontText
-            xmlns:font="http://schemas.android.com/apk/lib/com.thoughtworks.retailshop.util"
+        <com.hitesh_sahu.retailapp.util.FontText xmlns:font="http://schemas.android.com/apk/lib/com.thoughtworks.retailshop.util"
             android:id="@+id/pro_txt"
             style="@style/TextAppearance.AppCompat.Display1"
             android:layout_width="wrap_content"

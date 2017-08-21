@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.fragment;
 
 import android.graphics.Bitmap;
@@ -29,234 +37,233 @@ import java.util.Set;
 
 public class ProductOverviewFragment extends Fragment {
 
-	// SimpleRecyclerAdapter adapter;
-	private KenBurnsView header;
-	private Bitmap bitmap;
-	private Toolbar mToolbar;
-	private ViewPager viewPager;
-	private CollapsingToolbarLayout collapsingToolbarLayout;
-	private TabLayout tabLayout;
+    // SimpleRecyclerAdapter adapter;
+    private KenBurnsView header;
+    private Bitmap bitmap;
+    private Toolbar mToolbar;
+    private ViewPager viewPager;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private TabLayout tabLayout;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.frag_category_details,
-				container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_category_details,
+                container, false);
 
-		getActivity().setTitle("Products");
+        getActivity().setTitle("Products");
 
-		// Simulate Web service calls
-		FakeWebServer.getFakeWebServer().getAllProducts(
-				AppConstants.CURRENT_CATEGORY);
+        // Simulate Web service calls
+        FakeWebServer.getFakeWebServer().getAllProducts(
+                AppConstants.CURRENT_CATEGORY);
 
-		// TODO We Can use Async task But pallete creation is problemitic job
-		// will
-		// get back to it later
+        // TODO We Can use Async task But pallete creation is problemitic job
+        // will
+        // get back to it later
 
-		// new ProductLoaderTask(null, getActivity(), viewPager, tabLayout);
+        // new ProductLoaderTask(null, getActivity(), viewPager, tabLayout);
 
-		// Volley can be used here very efficiently but Fake JSON creation is
-		// time consuming Leain it now
+        // Volley can be used here very efficiently but Fake JSON creation is
+        // time consuming Leain it now
 
-		viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
+        viewPager = (ViewPager) view.findViewById(R.id.htab_viewpager);
 
-		collapsingToolbarLayout = (CollapsingToolbarLayout) view
-				.findViewById(R.id.htab_collapse_toolbar);
-		collapsingToolbarLayout.setTitleEnabled(false);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) view
+                .findViewById(R.id.htab_collapse_toolbar);
+        collapsingToolbarLayout.setTitleEnabled(false);
 
-		header = (KenBurnsView) view.findViewById(R.id.htab_header);
-		header.setImageResource(R.drawable.header);
+        header = (KenBurnsView) view.findViewById(R.id.htab_header);
+        header.setImageResource(R.drawable.header);
 
-		tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
+        tabLayout = (TabLayout) view.findViewById(R.id.htab_tabs);
 
-		mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
-		if (mToolbar != null) {
-			((ECartHomeActivity) getActivity()).setSupportActionBar(mToolbar);
-		}
+        mToolbar = (Toolbar) view.findViewById(R.id.htab_toolbar);
+        if (mToolbar != null) {
+            ((ECartHomeActivity) getActivity()).setSupportActionBar(mToolbar);
+        }
 
-		if (mToolbar != null) {
-			((ECartHomeActivity) getActivity()).getSupportActionBar()
-					.setDisplayHomeAsUpEnabled(true);
+        if (mToolbar != null) {
+            ((ECartHomeActivity) getActivity()).getSupportActionBar()
+                    .setDisplayHomeAsUpEnabled(true);
 
-			mToolbar.setNavigationIcon(R.drawable.ic_drawer);
+            mToolbar.setNavigationIcon(R.drawable.ic_drawer);
 
-		}
+        }
 
-		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((ECartHomeActivity) getActivity()).getmDrawerLayout()
-						.openDrawer(GravityCompat.START);
-			}
-		});
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ECartHomeActivity) getActivity()).getmDrawerLayout()
+                        .openDrawer(GravityCompat.START);
+            }
+        });
 
-		setUpUi();
+        setUpUi();
 
-		view.setFocusableInTouchMode(true);
-		view.requestFocus();
-		view.setOnKeyListener(new View.OnKeyListener() {
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
 
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-				if (event.getAction() == KeyEvent.ACTION_UP
-						&& keyCode == KeyEvent.KEYCODE_BACK) {
+                if (event.getAction() == KeyEvent.ACTION_UP
+                        && keyCode == KeyEvent.KEYCODE_BACK) {
 
-					Utils.switchContent(R.id.frag_container,
-							Utils.HOME_FRAGMENT,
-							((ECartHomeActivity) (getContext())),
-							AnimationType.SLIDE_RIGHT);
+                    Utils.switchContent(R.id.frag_container,
+                            Utils.HOME_FRAGMENT,
+                            ((ECartHomeActivity) (getContext())),
+                            AnimationType.SLIDE_RIGHT);
 
-				}
-				return true;
-			}
-		});
+                }
+                return true;
+            }
+        });
 
-		return view;
-	}
+        return view;
+    }
 
-	private void setUpUi() {
+    private void setUpUi() {
 
-		setupViewPager(viewPager);
+        setupViewPager(viewPager);
 
-		tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
 
-		bitmap = BitmapFactory
-				.decodeResource(getResources(), R.drawable.header);
+        bitmap = BitmapFactory
+                .decodeResource(getResources(), R.drawable.header);
 
-		Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-			@SuppressWarnings("ResourceType")
-			@Override
-			public void onGenerated(Palette palette) {
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @SuppressWarnings("ResourceType")
+            @Override
+            public void onGenerated(Palette palette) {
 
-				int vibrantColor = palette.getVibrantColor(R.color.primary_500);
-				int vibrantDarkColor = palette
-						.getDarkVibrantColor(R.color.primary_700);
-				collapsingToolbarLayout.setContentScrimColor(vibrantColor);
-				collapsingToolbarLayout
-						.setStatusBarScrimColor(vibrantDarkColor);
-			}
-		});
+                int vibrantColor = palette.getVibrantColor(R.color.primary_500);
+                int vibrantDarkColor = palette
+                        .getDarkVibrantColor(R.color.primary_700);
+                collapsingToolbarLayout.setContentScrimColor(vibrantColor);
+                collapsingToolbarLayout
+                        .setStatusBarScrimColor(vibrantDarkColor);
+            }
+        });
 
-		tabLayout
-				.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-					@Override
-					public void onTabSelected(TabLayout.Tab tab) {
+        tabLayout
+                .setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
 
-						viewPager.setCurrentItem(tab.getPosition());
+                        viewPager.setCurrentItem(tab.getPosition());
 
-						switch (tab.getPosition()) {
-						case 0:
+                        switch (tab.getPosition()) {
+                            case 0:
 
-							header.setImageResource(R.drawable.header);
+                                header.setImageResource(R.drawable.header);
 
-							bitmap = BitmapFactory.decodeResource(
-									getResources(), R.drawable.header);
+                                bitmap = BitmapFactory.decodeResource(
+                                        getResources(), R.drawable.header);
 
-							Palette.from(bitmap).generate(
-									new Palette.PaletteAsyncListener() {
-										@SuppressWarnings("ResourceType")
-										@Override
-										public void onGenerated(Palette palette) {
+                                Palette.from(bitmap).generate(
+                                        new Palette.PaletteAsyncListener() {
+                                            @SuppressWarnings("ResourceType")
+                                            @Override
+                                            public void onGenerated(Palette palette) {
 
-											int vibrantColor = palette
-													.getVibrantColor(R.color.primary_500);
-											int vibrantDarkColor = palette
-													.getDarkVibrantColor(R.color.primary_700);
-											collapsingToolbarLayout
-													.setContentScrimColor(vibrantColor);
-											collapsingToolbarLayout
-													.setStatusBarScrimColor(vibrantDarkColor);
-										}
-									});
-							break;
-						case 1:
+                                                int vibrantColor = palette
+                                                        .getVibrantColor(R.color.primary_500);
+                                                int vibrantDarkColor = palette
+                                                        .getDarkVibrantColor(R.color.primary_700);
+                                                collapsingToolbarLayout
+                                                        .setContentScrimColor(vibrantColor);
+                                                collapsingToolbarLayout
+                                                        .setStatusBarScrimColor(vibrantDarkColor);
+                                            }
+                                        });
+                                break;
+                            case 1:
 
-							header.setImageResource(R.drawable.header_1);
+                                header.setImageResource(R.drawable.header_1);
 
-							bitmap = BitmapFactory.decodeResource(
-									getResources(), R.drawable.header_1);
+                                bitmap = BitmapFactory.decodeResource(
+                                        getResources(), R.drawable.header_1);
 
-							Palette.from(bitmap).generate(
-									new Palette.PaletteAsyncListener() {
-										@SuppressWarnings("ResourceType")
-										@Override
-										public void onGenerated(Palette palette) {
+                                Palette.from(bitmap).generate(
+                                        new Palette.PaletteAsyncListener() {
+                                            @SuppressWarnings("ResourceType")
+                                            @Override
+                                            public void onGenerated(Palette palette) {
 
-											int vibrantColor = palette
-													.getVibrantColor(R.color.primary_500);
-											int vibrantDarkColor = palette
-													.getDarkVibrantColor(R.color.primary_700);
-											collapsingToolbarLayout
-													.setContentScrimColor(vibrantColor);
-											collapsingToolbarLayout
-													.setStatusBarScrimColor(vibrantDarkColor);
-										}
-									});
+                                                int vibrantColor = palette
+                                                        .getVibrantColor(R.color.primary_500);
+                                                int vibrantDarkColor = palette
+                                                        .getDarkVibrantColor(R.color.primary_700);
+                                                collapsingToolbarLayout
+                                                        .setContentScrimColor(vibrantColor);
+                                                collapsingToolbarLayout
+                                                        .setStatusBarScrimColor(vibrantDarkColor);
+                                            }
+                                        });
 
-							break;
-						case 2:
+                                break;
+                            case 2:
 
-							header.setImageResource(R.drawable.header2);
+                                header.setImageResource(R.drawable.header2);
 
-							Bitmap bitmap = BitmapFactory.decodeResource(
-									getResources(), R.drawable.header2);
+                                Bitmap bitmap = BitmapFactory.decodeResource(
+                                        getResources(), R.drawable.header2);
 
-							Palette.from(bitmap).generate(
-									new Palette.PaletteAsyncListener() {
-										@SuppressWarnings("ResourceType")
-										@Override
-										public void onGenerated(Palette palette) {
+                                Palette.from(bitmap).generate(
+                                        new Palette.PaletteAsyncListener() {
+                                            @SuppressWarnings("ResourceType")
+                                            @Override
+                                            public void onGenerated(Palette palette) {
 
-											int vibrantColor = palette
-													.getVibrantColor(R.color.primary_500);
-											int vibrantDarkColor = palette
-													.getDarkVibrantColor(R.color.primary_700);
-											collapsingToolbarLayout
-													.setContentScrimColor(vibrantColor);
-											collapsingToolbarLayout
-													.setStatusBarScrimColor(vibrantDarkColor);
-										}
-									});
+                                                int vibrantColor = palette
+                                                        .getVibrantColor(R.color.primary_500);
+                                                int vibrantDarkColor = palette
+                                                        .getDarkVibrantColor(R.color.primary_700);
+                                                collapsingToolbarLayout
+                                                        .setContentScrimColor(vibrantColor);
+                                                collapsingToolbarLayout
+                                                        .setStatusBarScrimColor(vibrantDarkColor);
+                                            }
+                                        });
 
-							break;
-						}
-					}
+                                break;
+                        }
+                    }
 
-					@Override
-					public void onTabUnselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
 
-					}
+                    }
 
-					@Override
-					public void onTabReselected(TabLayout.Tab tab) {
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
 
-					}
-				});
+                    }
+                });
 
-	}
+    }
 
-	private void setupViewPager(ViewPager viewPager) {
-		ProductsInCategoryPagerAdapter adapter = new ProductsInCategoryPagerAdapter(
-				getActivity().getSupportFragmentManager());
-		Set<String> keys = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
-				.keySet();
+    private void setupViewPager(ViewPager viewPager) {
+        ProductsInCategoryPagerAdapter adapter = new ProductsInCategoryPagerAdapter(
+                getActivity().getSupportFragmentManager());
+        Set<String> keys = CenterRepository.getCenterRepository().getMapOfProductsInCategory()
+                .keySet();
 
-		for (String string : keys) {
-			adapter.addFrag(new ProductListFragment(string), string);
-		}
+        for (String string : keys) {
+            adapter.addFrag(new ProductListFragment(string), string);
+        }
 
-		viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter);
 //		viewPager.setPageTransformer(true,
 //				Utils.currentPageTransformer(getActivity()));
-	}
-	
-	
-	
-	// TODO
-	//Below Code Work Well But requires JSOn to work
-	// Below line of code does caching for offline usage
-	
+    }
+
+
+    // TODO
+    //Below Code Work Well But requires JSOn to work
+    // Below line of code does caching for offline usage
+
 	
 	/*void fillProductMapFromCache() {
 

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.activities;
 
 import android.app.Dialog;
@@ -41,13 +49,10 @@ import java.util.Set;
 
 public class ECartHomeActivity extends AppCompatActivity {
 
+    public static final double MINIMUM_SUPPORT = 0.1;
+    private static final String TAG = ECartHomeActivity.class.getSimpleName();
     AprioriFrequentItemsetGenerator<String> generator =
             new AprioriFrequentItemsetGenerator<>();
-
-    private static final String TAG = ECartHomeActivity.class.getSimpleName();
-
-    public static final double MINIMUM_SUPPORT = 0.1;
-
     private int itemCount = 0;
     private BigDecimal checkoutAmount = new BigDecimal(BigInteger.ZERO);
     private DrawerLayout mDrawerLayout;

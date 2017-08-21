@@ -1,17 +1,9 @@
 /*
- * Copyright (C) 2015 Paul Burke
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
  */
 
 package com.hitesh_sahu.retailapp.view.adapter;
@@ -60,281 +52,273 @@ import java.util.List;
  * @author Hitesh Sahu (hiteshsahu.com)
  */
 public class ShoppingListAdapter extends
-		RecyclerView.Adapter<ShoppingListAdapter.ItemViewHolder> implements
-		ItemTouchHelperAdapter {
+        RecyclerView.Adapter<ShoppingListAdapter.ItemViewHolder> implements
+        ItemTouchHelperAdapter {
 
-	private final OnStartDragListener mDragStartListener;
+    private static OnItemClickListener clickListener;
+    private final OnStartDragListener mDragStartListener;
+    private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
+    private IBuilder mDrawableBuilder;
+    private TextDrawable drawable;
+    private String ImageUrl;
+    private List<Product> productList = new ArrayList<Product>();
+    private Context context;
 
-	private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
+    public ShoppingListAdapter(Context context,
+                               OnStartDragListener dragStartListener) {
+        mDragStartListener = dragStartListener;
 
-	private IBuilder mDrawableBuilder;
+        this.context = context;
 
-	private TextDrawable drawable;
+        productList = CenterRepository.getCenterRepository().getListOfProductsInShoppingList();
+    }
 
-	private String ImageUrl;
+    @Override
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.item_product_list, parent, false);
+        ItemViewHolder itemViewHolder = new ItemViewHolder(view);
+        return itemViewHolder;
+    }
 
-	private List<Product> productList = new ArrayList<Product>();
-	private static OnItemClickListener clickListener;
+    @Override
+    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
+        holder.itemName.setText(productList.get(position).getItemName());
 
-	private Context context;
+        holder.itemDesc.setText(productList.get(position).getItemShortDesc());
 
-	public ShoppingListAdapter(Context context,
-			OnStartDragListener dragStartListener) {
-		mDragStartListener = dragStartListener;
+        String sellCostString = Money.rupees(
+                BigDecimal.valueOf(Long.valueOf(productList.get(position)
+                        .getSellMRP()))).toString()
+                + "  ";
 
-		this.context = context;
+        String buyMRP = Money.rupees(
+                BigDecimal.valueOf(Long.valueOf(productList.get(position)
+                        .getMRP()))).toString();
 
-		productList = CenterRepository.getCenterRepository().getListOfProductsInShoppingList();
-	}
+        String costString = sellCostString + buyMRP;
+
+        holder.itemCost.setText(costString, BufferType.SPANNABLE);
+
+        Spannable spannable = (Spannable) holder.itemCost.getText();
+
+        spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
+                costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-	@Override
-	public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(
-				R.layout.item_product_list, parent, false);
-		ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-		return itemViewHolder;
-	}
+        mDrawableBuilder = TextDrawable.builder().beginConfig().withBorder(4)
+                .endConfig().roundRect(10);
 
-	@Override
-	public void onBindViewHolder(final ItemViewHolder holder, final int position) {
-		holder.itemName.setText(productList.get(position).getItemName());
+        drawable = mDrawableBuilder.build(String.valueOf(productList
+                .get(position).getItemName().charAt(0)), mColorGenerator
+                .getColor(productList.get(position).getItemName()));
 
-		holder.itemDesc.setText(productList.get(position).getItemShortDesc());
+        ImageUrl = productList.get(position).getImageURL();
 
-		String sellCostString = Money.rupees(
-				BigDecimal.valueOf(Long.valueOf(productList.get(position)
-						.getSellMRP()))).toString()
-				+ "  ";
+        holder.quanitity.setText(CenterRepository.getCenterRepository()
+                .getListOfProductsInShoppingList().get(position).getQuantity());
 
-		String buyMRP = Money.rupees(
-				BigDecimal.valueOf(Long.valueOf(productList.get(position)
-						.getMRP()))).toString();
+        Glide.with(context).load(ImageUrl).placeholder(drawable)
+                .error(drawable).animate(R.anim.base_slide_right_in)
+                .centerCrop().into(holder.imagView);
 
-		String costString = sellCostString + buyMRP;
+        // Start a drag whenever the handle view it touched
+        holder.imagView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onStartDrag(holder);
+                }
+                return false;
+            }
+        });
 
-		holder.itemCost.setText(costString, BufferType.SPANNABLE);
+        holder.addItem.setOnClickListener(new OnClickListener() {
 
-		Spannable spannable = (Spannable) holder.itemCost.getText();
+            @Override
+            public void onClick(View v) {
 
-		spannable.setSpan(new StrikethroughSpan(), sellCostString.length(),
-				costString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                CenterRepository
+                        .getCenterRepository()
+                        .getListOfProductsInShoppingList()
+                        .get(position)
+                        .setQuantity(
+                                String.valueOf(
 
-		mDrawableBuilder = TextDrawable.builder().beginConfig().withBorder(4)
-				.endConfig().roundRect(10);
+                                        Integer.valueOf(CenterRepository
+                                                .getCenterRepository().getListOfProductsInShoppingList()
+                                                .get(position).getQuantity()) + 1));
 
-		drawable = mDrawableBuilder.build(String.valueOf(productList
-				.get(position).getItemName().charAt(0)), mColorGenerator
-				.getColor(productList.get(position).getItemName()));
+                holder.quanitity.setText(CenterRepository.getCenterRepository()
+                        .getListOfProductsInShoppingList().get(position).getQuantity());
 
-		ImageUrl = productList.get(position).getImageURL();
+                Utils.vibrate(context);
 
-		holder.quanitity.setText(CenterRepository.getCenterRepository()
-				.getListOfProductsInShoppingList().get(position).getQuantity());
+                ((ECartHomeActivity) context).updateCheckOutAmount(
+                        BigDecimal.valueOf(Long.valueOf(CenterRepository
+                                .getCenterRepository().getListOfProductsInShoppingList()
+                                .get(position).getSellMRP())), true);
 
-		Glide.with(context).load(ImageUrl).placeholder(drawable)
-				.error(drawable).animate(R.anim.base_slide_right_in)
-				.centerCrop().into(holder.imagView);
+            }
+        });
 
-		// Start a drag whenever the handle view it touched
-		holder.imagView.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-					mDragStartListener.onStartDrag(holder);
-				}
-				return false;
-			}
-		});
+        holder.removeItem.setOnClickListener(new OnClickListener() {
 
-		holder.addItem.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-			@Override
-			public void onClick(View v) {
+                if (Integer.valueOf(CenterRepository.getCenterRepository()
+                        .getListOfProductsInShoppingList().get(position).getQuantity()) > 2) {
 
-				CenterRepository
-						.getCenterRepository()
-						.getListOfProductsInShoppingList()
-						.get(position)
-						.setQuantity(
-								String.valueOf(
+                    CenterRepository
+                            .getCenterRepository()
+                            .getListOfProductsInShoppingList()
+                            .get(position)
+                            .setQuantity(
+                                    String.valueOf(
 
-								Integer.valueOf(CenterRepository
-										.getCenterRepository().getListOfProductsInShoppingList()
-										.get(position).getQuantity()) + 1));
+                                            Integer.valueOf(CenterRepository
+                                                    .getCenterRepository()
+                                                    .getListOfProductsInShoppingList().get(position)
+                                                    .getQuantity()) - 1));
 
-				holder.quanitity.setText(CenterRepository.getCenterRepository()
-						.getListOfProductsInShoppingList().get(position).getQuantity());
+                    holder.quanitity.setText(CenterRepository
+                            .getCenterRepository().getListOfProductsInShoppingList()
+                            .get(position).getQuantity());
 
-				Utils.vibrate(context);
+                    ((ECartHomeActivity) context).updateCheckOutAmount(
+                            BigDecimal.valueOf(Long.valueOf(CenterRepository
+                                    .getCenterRepository().getListOfProductsInShoppingList()
+                                    .get(position).getSellMRP())), false);
 
-				((ECartHomeActivity) context).updateCheckOutAmount(
-						BigDecimal.valueOf(Long.valueOf(CenterRepository
-								.getCenterRepository().getListOfProductsInShoppingList()
-								.get(position).getSellMRP())), true);
+                    Utils.vibrate(context);
+                } else if (Integer.valueOf(CenterRepository.getCenterRepository()
+                        .getListOfProductsInShoppingList().get(position).getQuantity()) == 1) {
+                    ((ECartHomeActivity) context).updateItemCount(false);
 
-			}
-		});
+                    ((ECartHomeActivity) context).updateCheckOutAmount(
+                            BigDecimal.valueOf(Long.valueOf(CenterRepository
+                                    .getCenterRepository().getListOfProductsInShoppingList()
+                                    .get(position).getSellMRP())), false);
 
-		holder.removeItem.setOnClickListener(new OnClickListener() {
+                    CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
+                            .remove(position);
 
-			@Override
-			public void onClick(View v) {
+                    if (Integer.valueOf(((ECartHomeActivity) context)
+                            .getItemCount()) == 0) {
 
-				if (Integer.valueOf(CenterRepository.getCenterRepository()
-						.getListOfProductsInShoppingList().get(position).getQuantity()) > 2) {
+                        MyCartFragment.updateMyCartFragment(false);
 
-					CenterRepository
-							.getCenterRepository()
-							.getListOfProductsInShoppingList()
-							.get(position)
-							.setQuantity(
-									String.valueOf(
+                    }
 
-									Integer.valueOf(CenterRepository
-											.getCenterRepository()
-											.getListOfProductsInShoppingList().get(position)
-											.getQuantity()) - 1));
+                    Utils.vibrate(context);
 
-					holder.quanitity.setText(CenterRepository
-							.getCenterRepository().getListOfProductsInShoppingList()
-							.get(position).getQuantity());
+                }
 
-					((ECartHomeActivity) context).updateCheckOutAmount(
-							BigDecimal.valueOf(Long.valueOf(CenterRepository
-									.getCenterRepository().getListOfProductsInShoppingList()
-									.get(position).getSellMRP())), false);
+            }
+        });
+    }
 
-					Utils.vibrate(context);
-				}
+    @Override
+    public void onItemDismiss(int position) {
 
-				else if (Integer.valueOf(CenterRepository.getCenterRepository()
-						.getListOfProductsInShoppingList().get(position).getQuantity()) == 1) {
-					((ECartHomeActivity) context).updateItemCount(false);
+        ((ECartHomeActivity) context).updateItemCount(false);
 
-					((ECartHomeActivity) context).updateCheckOutAmount(
-							BigDecimal.valueOf(Long.valueOf(CenterRepository
-									.getCenterRepository().getListOfProductsInShoppingList()
-									.get(position).getSellMRP())), false);
+        ((ECartHomeActivity) context).updateCheckOutAmount(
+                BigDecimal.valueOf(Long.valueOf(CenterRepository
+                        .getCenterRepository().getListOfProductsInShoppingList().get(position)
+                        .getSellMRP())), false);
 
-					CenterRepository.getCenterRepository().getListOfProductsInShoppingList()
-							.remove(position);
+        CenterRepository.getCenterRepository().getListOfProductsInShoppingList().remove(position);
 
-					if (Integer.valueOf(((ECartHomeActivity) context)
-							.getItemCount()) == 0) {
+        if (Integer.valueOf(((ECartHomeActivity) context).getItemCount()) == 0) {
 
-						MyCartFragment.updateMyCartFragment(false);
+            MyCartFragment.updateMyCartFragment(false);
 
-					}
+        }
 
-					Utils.vibrate(context);
+        Utils.vibrate(context);
 
-				}
+        // productList.remove(position);
+        notifyItemRemoved(position);
+    }
 
-			}
-		});
-	}
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
 
-	@Override
-	public void onItemDismiss(int position) {
+        Collections.swap(productList, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
 
-		((ECartHomeActivity) context).updateItemCount(false);
+    @Override
+    public int getItemCount() {
+        return productList.size();
 
-		((ECartHomeActivity) context).updateCheckOutAmount(
-				BigDecimal.valueOf(Long.valueOf(CenterRepository
-						.getCenterRepository().getListOfProductsInShoppingList().get(position)
-						.getSellMRP())), false);
+    }
 
-		CenterRepository.getCenterRepository().getListOfProductsInShoppingList().remove(position);
+    public void SetOnItemClickListener(
+            final OnItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
+    }
 
-		if (Integer.valueOf(((ECartHomeActivity) context).getItemCount()) == 0) {
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int position);
+    }
 
-			MyCartFragment.updateMyCartFragment(false);
+    /**
+     * Simple example of a view holder that implements
+     * {@link ItemTouchHelperViewHolder} and has a "handle" view that initiates
+     * a drag event when touched.
+     */
+    public static class ItemViewHolder extends RecyclerView.ViewHolder
+            implements ItemTouchHelperViewHolder, View.OnClickListener {
 
-		}
+        // public final ImageView handleView;
 
-		Utils.vibrate(context);
+        TextView itemName, itemDesc, itemCost, availability, quanitity,
+                addItem, removeItem;
+        ImageView imagView;
 
-		// productList.remove(position);
-		notifyItemRemoved(position);
-	}
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+            // handleView = (ImageView) itemView.findViewById(R.id.handle);
 
-	@Override
-	public boolean onItemMove(int fromPosition, int toPosition) {
+            itemName = (TextView) itemView.findViewById(R.id.item_name);
 
-		Collections.swap(productList, fromPosition, toPosition);
-		notifyItemMoved(fromPosition, toPosition);
-		return true;
-	}
+            itemDesc = (TextView) itemView.findViewById(R.id.item_short_desc);
 
-	@Override
-	public int getItemCount() {
-		return productList.size();
+            itemCost = (TextView) itemView.findViewById(R.id.item_price);
 
-	}
+            availability = (TextView) itemView
+                    .findViewById(R.id.iteam_avilable);
 
-	/**
-	 * Simple example of a view holder that implements
-	 * {@link ItemTouchHelperViewHolder} and has a "handle" view that initiates
-	 * a drag event when touched.
-	 */
-	public static class ItemViewHolder extends RecyclerView.ViewHolder
-			implements ItemTouchHelperViewHolder, View.OnClickListener {
+            quanitity = (TextView) itemView.findViewById(R.id.iteam_amount);
 
-		// public final ImageView handleView;
+            itemName.setSelected(true);
 
-		TextView itemName, itemDesc, itemCost, availability, quanitity,
-				addItem, removeItem;
-		ImageView imagView;
+            imagView = ((ImageView) itemView.findViewById(R.id.product_thumb));
 
-		public ItemViewHolder(View itemView) {
-			super(itemView);
-			// handleView = (ImageView) itemView.findViewById(R.id.handle);
+            addItem = ((TextView) itemView.findViewById(R.id.add_item));
 
-			itemName = (TextView) itemView.findViewById(R.id.item_name);
+            removeItem = ((TextView) itemView.findViewById(R.id.remove_item));
 
-			itemDesc = (TextView) itemView.findViewById(R.id.item_short_desc);
+            itemView.setOnClickListener(this);
+        }
 
-			itemCost = (TextView) itemView.findViewById(R.id.item_price);
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
 
-			availability = (TextView) itemView
-					.findViewById(R.id.iteam_avilable);
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
+        }
 
-			quanitity = (TextView) itemView.findViewById(R.id.iteam_amount);
+        @Override
+        public void onClick(View v) {
 
-			itemName.setSelected(true);
-
-			imagView = ((ImageView) itemView.findViewById(R.id.product_thumb));
-
-			addItem = ((TextView) itemView.findViewById(R.id.add_item));
-
-			removeItem = ((TextView) itemView.findViewById(R.id.remove_item));
-
-			itemView.setOnClickListener(this);
-		}
-
-		@Override
-		public void onItemSelected() {
-			itemView.setBackgroundColor(Color.LTGRAY);
-		}
-
-		@Override
-		public void onItemClear() {
-			itemView.setBackgroundColor(0);
-		}
-
-		@Override
-		public void onClick(View v) {
-
-			clickListener.onItemClick(v, getPosition());
-		}
-	}
-
-	public interface OnItemClickListener {
-		public void onItemClick(View view, int position);
-	}
-
-	public void SetOnItemClickListener(
-			final OnItemClickListener itemClickListener) {
-		this.clickListener = itemClickListener;
-	}
+            clickListener.onItemClick(v, getPosition());
+        }
+    }
 }

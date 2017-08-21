@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.domain.mining;
 
 import android.os.Build;
@@ -23,6 +31,15 @@ import java.util.Set;
  */
 public class AprioriFrequentItemsetGenerator<I> {
 
+    private static final Comparator ITEM_COMPARATOR = new Comparator() {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            return ((Comparable) o1).compareTo(o2);
+        }
+
+    };
+
     /**
      * Generates the frequent itemset data.
      *
@@ -46,7 +63,7 @@ public class AprioriFrequentItemsetGenerator<I> {
             return null;
         }
 
-        // Maps each itemset to its support count. Support count is simply the 
+        // Maps each itemset to its support count. Support count is simply the
         // number of times an itemset appeares in the transaction list.
         Map<Set<I>, Integer> supportCountMap = new HashMap<>();
 
@@ -55,7 +72,7 @@ public class AprioriFrequentItemsetGenerator<I> {
                 supportCountMap,
                 minimumSupport);
 
-        // Maps each 'k' to the list of frequent k-itemsets. 
+        // Maps each 'k' to the list of frequent k-itemsets.
         Map<Integer, List<Set<I>>> map = new HashMap<>();
         map.put(1, frequentItemList);
 
@@ -235,15 +252,6 @@ public class AprioriFrequentItemsetGenerator<I> {
         ret.add(itemset2.get(length - 1));
         return ret;
     }
-
-    private static final Comparator ITEM_COMPARATOR = new Comparator() {
-
-        @Override
-        public int compare(Object o1, Object o2) {
-            return ((Comparable) o1).compareTo(o2);
-        }
-
-    };
 
     /**
      * Computes the frequent itemsets of size 1.

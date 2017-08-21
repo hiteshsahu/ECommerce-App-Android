@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dummyfrag_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_material_light"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/slide_down"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp"
-        android:background="#03A14D" >
+        android:background="#03A14D"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/slider"
@@ -41,17 +48,16 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/slide_down" >
+        android:layout_below="@+id/slide_down">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/slide_down" >
+            android:layout_below="@+id/slide_down">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/product_list_recycler_view"
@@ -64,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/slide_down"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -78,7 +84,7 @@
                     android:layout_gravity="bottom"
                     android:background="#70000000"
                     android:gravity="bottom"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/item_name"

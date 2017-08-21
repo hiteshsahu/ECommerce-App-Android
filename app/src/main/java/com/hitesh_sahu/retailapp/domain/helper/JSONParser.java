@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.domain.helper;
 
 import android.util.Log;
@@ -27,6 +35,59 @@ public class JSONParser {
         super();
         this.networktaskType = networktaskType;
         this.jsonResponse = jsonResponse;
+    }
+
+    public static JSONObject toJSON(Object object) throws JSONException,
+            IllegalAccessException {
+        Class c = object.getClass();
+        JSONObject jsonObject = new JSONObject();
+        for (Field field : c.getDeclaredFields()) {
+            field.setAccessible(true);
+            String name = field.getName();
+            String value = String.valueOf(field.get(object));
+            jsonObject.put(name, value);
+        }
+        System.out.println(jsonObject.toString());
+
+        return jsonObject;
+    }
+
+    // public static String toJSON(Object object) throws JSONException,
+    // IllegalAccessException {
+    // String str = "";
+    // Class c = object.getClass();
+    // JSONObject jsonObject = new JSONObject();
+    // for (Field field : c.getDeclaredFields()) {
+    // field.setAccessible(true);
+    // String name = field.getName();
+    // String value = String.valueOf(field.get(object));
+    // jsonObject.put(name, value);
+    // }
+    // System.out.println(jsonObject.toString());
+    //
+    // return jsonObject.toString();
+    // }
+    //
+    // public static String toJSON(List list) throws JSONException,
+    // IllegalAccessException {
+    // JSONArray jsonArray = new JSONArray();
+    // for (Object i : list) {
+    // String jstr = toJSON(i);
+    // JSONObject jsonObject = new JSONObject(jstr);
+    // jsonArray.put(jsonObject);
+    // }
+    // return jsonArray.toString();
+    // }
+
+    public static JSONArray toJSONFromList(List list) throws JSONException,
+            IllegalAccessException {
+        JSONArray jsonArray = new JSONArray();
+        for (Object i : list) {
+            JSONObject jstr = toJSON(i);
+            // JSONObject jsonObject = new JSONObject(jstr);
+            jsonArray.put(jstr);
+        }
+        return jsonArray;
     }
 
     public void parse() {
@@ -129,7 +190,7 @@ public class JSONParser {
                                                         .getString("salePrice"),
                                             /*
                                              * productListObjecty
-											 * 
+											 *
 											 * .getString("avbleQuantity"),
 											 */
                                                 "0", productListObjecty
@@ -224,8 +285,8 @@ public class JSONParser {
 
                                         .getString("salePrice"),
                             /*
-							 * productListObjecty
-							 * 
+                             * productListObjecty
+							 *
 							 * .getString("avbleQuantity"),
 							 */
                                         "0", productListObjecty
@@ -261,59 +322,6 @@ public class JSONParser {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
         }
 
-    }
-
-    // public static String toJSON(Object object) throws JSONException,
-    // IllegalAccessException {
-    // String str = "";
-    // Class c = object.getClass();
-    // JSONObject jsonObject = new JSONObject();
-    // for (Field field : c.getDeclaredFields()) {
-    // field.setAccessible(true);
-    // String name = field.getName();
-    // String value = String.valueOf(field.get(object));
-    // jsonObject.put(name, value);
-    // }
-    // System.out.println(jsonObject.toString());
-    //
-    // return jsonObject.toString();
-    // }
-    //
-    // public static String toJSON(List list) throws JSONException,
-    // IllegalAccessException {
-    // JSONArray jsonArray = new JSONArray();
-    // for (Object i : list) {
-    // String jstr = toJSON(i);
-    // JSONObject jsonObject = new JSONObject(jstr);
-    // jsonArray.put(jsonObject);
-    // }
-    // return jsonArray.toString();
-    // }
-
-    public static JSONObject toJSON(Object object) throws JSONException,
-            IllegalAccessException {
-        Class c = object.getClass();
-        JSONObject jsonObject = new JSONObject();
-        for (Field field : c.getDeclaredFields()) {
-            field.setAccessible(true);
-            String name = field.getName();
-            String value = String.valueOf(field.get(object));
-            jsonObject.put(name, value);
-        }
-        System.out.println(jsonObject.toString());
-
-        return jsonObject;
-    }
-
-    public static JSONArray toJSONFromList(List list) throws JSONException,
-            IllegalAccessException {
-        JSONArray jsonArray = new JSONArray();
-        for (Object i : list) {
-            JSONObject jstr = toJSON(i);
-            // JSONObject jsonObject = new JSONObject(jstr);
-            jsonArray.put(jstr);
-        }
-        return jsonArray;
     }
 
 }

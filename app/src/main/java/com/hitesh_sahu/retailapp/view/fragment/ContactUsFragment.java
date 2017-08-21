@@ -1,18 +1,9 @@
 /*
- * Copyright 2016 Hitesh Sahu
- * Copyright 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
  */
 package com.hitesh_sahu.retailapp.view.fragment;
 
@@ -36,145 +27,146 @@ import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * Fragment that appears in the "content_frame", shows a animal.
  */
 public class ContactUsFragment extends Fragment {
 
-	private Toolbar mToolbar;
+    private Toolbar mToolbar;
 
-	/**
-	 * Instantiates a new settings fragment.
-	 */
-	public ContactUsFragment() {
-		// Empty constructor required for fragment subclasses
-	}
+    /**
+     * Instantiates a new settings fragment.
+     */
+    public ContactUsFragment() {
+        // Empty constructor required for fragment subclasses
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.frag_about, container,
-				false);
+    public static Fragment newInstance() {
+        // TODO Auto-generated method stub
+        return new ContactUsFragment();
+    }
 
-		getActivity().setTitle("Contact Us");
-		
-		
-		mToolbar = (Toolbar) rootView.findViewById(R.id.htab_toolbar);
-		if (mToolbar != null) {
-			((ECartHomeActivity) getActivity()).setSupportActionBar(mToolbar);
-		}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.frag_about, container,
+                false);
 
-		if (mToolbar != null) {
-			((ECartHomeActivity) getActivity()).getSupportActionBar()
-					.setDisplayHomeAsUpEnabled(true);
+        getActivity().setTitle("Contact Us");
 
-			mToolbar.setNavigationIcon(R.drawable.ic_drawer);
 
-		}
+        mToolbar = (Toolbar) rootView.findViewById(R.id.htab_toolbar);
+        if (mToolbar != null) {
+            ((ECartHomeActivity) getActivity()).setSupportActionBar(mToolbar);
+        }
 
-		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((ECartHomeActivity) getActivity()).getmDrawerLayout()
-						.openDrawer(GravityCompat.START);
-			}
-		});
+        if (mToolbar != null) {
+            ((ECartHomeActivity) getActivity()).getSupportActionBar()
+                    .setDisplayHomeAsUpEnabled(true);
 
-		mToolbar.setTitleTextColor(Color.WHITE);
+            mToolbar.setNavigationIcon(R.drawable.ic_drawer);
 
-		rootView.findViewById(R.id.locations).setOnClickListener(
-				new OnClickListener() {
+        }
 
-					@Override
-					public void onClick(View v) {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ECartHomeActivity) getActivity()).getmDrawerLayout()
+                        .openDrawer(GravityCompat.START);
+            }
+        });
 
-					}
-				});
+        mToolbar.setTitleTextColor(Color.WHITE);
 
-		rootView.findViewById(R.id.contact_num).setOnClickListener(
-				new OnClickListener() {
+        rootView.findViewById(R.id.locations).setOnClickListener(
+                new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
-						Intent callIntent = new Intent(Intent.ACTION_DIAL);
-						callIntent.setData(Uri.parse("tel:" + "8888813275"));
-						startActivity(callIntent);
+                    }
+                });
 
-					}
-				});
+        rootView.findViewById(R.id.contact_num).setOnClickListener(
+                new OnClickListener() {
 
-		rootView.setFocusableInTouchMode(true);
-		rootView.requestFocus();
-		rootView.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public void onClick(View v) {
 
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:" + "8888813275"));
+                        startActivity(callIntent);
 
-				if (event.getAction() == KeyEvent.ACTION_UP
-						&& keyCode == KeyEvent.KEYCODE_BACK) {
+                    }
+                });
 
-					Utils.switchContent(R.id.frag_container,
-							Utils.HOME_FRAGMENT,
-							((ECartHomeActivity) (getContext())),
-							AnimationType.SLIDE_UP);
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
 
-				}
-				return true;
-			}
-		});
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-		rootView.findViewById(R.id.site_dev).setOnClickListener(
-				new OnClickListener() {
+                if (event.getAction() == KeyEvent.ACTION_UP
+                        && keyCode == KeyEvent.KEYCODE_BACK) {
 
-					@Override
-					public void onClick(View v) {
-						Intent browserIntent = new Intent(
-								Intent.ACTION_VIEW,
-								Uri.parse("http://hiteshsahu.com/"));
-						startActivity(browserIntent);
+                    Utils.switchContent(R.id.frag_container,
+                            Utils.HOME_FRAGMENT,
+                            ((ECartHomeActivity) (getContext())),
+                            AnimationType.SLIDE_UP);
 
-					}
-				});
+                }
+                return true;
+            }
+        });
 
-		rootView.findViewById(R.id.email).setOnClickListener(
-				new OnClickListener() {
+        rootView.findViewById(R.id.site_dev).setOnClickListener(
+                new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
+                        Intent browserIntent = new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("http://hiteshsahu.com/"));
+                        startActivity(browserIntent);
 
-						final Intent emailIntent = new Intent(
-								android.content.Intent.ACTION_SEND);
-						emailIntent.setType("text/plain");
-						emailIntent
-								.putExtra(
-										android.content.Intent.EXTRA_EMAIL,
-										new String[] { "hiteshkrsahu@gmail.com" });
-						emailIntent.putExtra(
-								android.content.Intent.EXTRA_SUBJECT,
-								"Hello There");
-						emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-								"Add Message here");
+                    }
+                });
 
-						emailIntent.setType("message/rfc822");
+        rootView.findViewById(R.id.email).setOnClickListener(
+                new OnClickListener() {
 
-						try {
-							startActivity(Intent.createChooser(emailIntent,
-									"Send email using..."));
-						} catch (android.content.ActivityNotFoundException ex) {
-							Toast.makeText(getActivity(),
-									"No email clients installed.",
-									Toast.LENGTH_SHORT).show();
-						}
+                    @Override
+                    public void onClick(View v) {
 
-					}
-				});
+                        final Intent emailIntent = new Intent(
+                                android.content.Intent.ACTION_SEND);
+                        emailIntent.setType("text/plain");
+                        emailIntent
+                                .putExtra(
+                                        android.content.Intent.EXTRA_EMAIL,
+                                        new String[]{"hiteshkrsahu@gmail.com"});
+                        emailIntent.putExtra(
+                                android.content.Intent.EXTRA_SUBJECT,
+                                "Hello There");
+                        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                                "Add Message here");
 
-		return rootView;
-	}
+                        emailIntent.setType("message/rfc822");
 
-	public static Fragment newInstance() {
-		// TODO Auto-generated method stub
-		return new ContactUsFragment();
-	}
+                        try {
+                            startActivity(Intent.createChooser(emailIntent,
+                                    "Send email using..."));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(getActivity(),
+                                    "No email clients installed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+        return rootView;
+    }
 }

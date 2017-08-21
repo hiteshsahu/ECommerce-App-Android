@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.fragment;
 
 import android.graphics.Bitmap;
@@ -26,21 +34,20 @@ import com.hitesh_sahu.retailapp.util.Utils.AnimationType;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
 
 public class HomeFragment extends Fragment {
+    int mutedColor = R.attr.colorPrimary;
     private CollapsingToolbarLayout collapsingToolbar;
     private RecyclerView recyclerView;
-    int mutedColor = R.attr.colorPrimary;
-
     /**
      * The double back to exit pressed once.
      */
     private boolean doubleBackToExitPressedOnce;
-    private Handler mHandler = new Handler();
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             doubleBackToExitPressedOnce = false;
         }
     };
+    private Handler mHandler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

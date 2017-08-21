@@ -1,23 +1,12 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
- * Copyright 2014 linger1216
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
  */
 
 package com.hitesh_sahu.retailapp.view.customview;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -36,8 +25,11 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class LabelView extends TextView {
 
+    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
     private float _offsetx;
     private float _offsety;
     private float _anchorx;
@@ -51,10 +43,6 @@ public class LabelView extends TextView {
             tran.postRotate(_angel, _anchorx, _anchory);
         }
     };
-
-    public enum Gravity {
-        LEFT_TOP, RIGHT_TOP
-    }
 
     public LabelView(Context context) {
         this(context, null);
@@ -75,6 +63,17 @@ public class LabelView extends TextView {
 
     }
 
+    public static int generateViewId() {
+        for (; ; ) {
+            final int result = sNextGeneratedId.get();
+            // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+            int newValue = result + 1;
+            if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+            if (sNextGeneratedId.compareAndSet(result, newValue)) {
+                return result;
+            }
+        }
+    }
 
     private void init() {
 
@@ -117,7 +116,6 @@ public class LabelView extends TextView {
 
     }
 
-
     public void setTargetViewInBaseAdapter(View target, int targetWidth, int distance, Gravity gravity) {
         if (!replaceLayout(target)) {
             return;
@@ -159,12 +157,12 @@ public class LabelView extends TextView {
         parentContainer.removeViewAt(groupIndex);
         frameContainer.removeView(target);
         frameContainer.removeView(this);
-        parentContainer.addView(target,groupIndex);
+        parentContainer.addView(target, groupIndex);
         _labelViewContainerID = -1;
     }
 
     @SuppressLint("NewApi")
-	private boolean replaceLayout(View target) {
+    private boolean replaceLayout(View target) {
         if (getParent() != null || target == null || target.getParent() == null || _labelViewContainerID != -1) {
             return false;
         }
@@ -241,17 +239,7 @@ public class LabelView extends TextView {
         return (int) (dip * getContext().getResources().getDisplayMetrics().density + 0.5f);
     }
 
-    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
-
-    public static int generateViewId() {
-        for (; ; ) {
-            final int result = sNextGeneratedId.get();
-            // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
-            int newValue = result + 1;
-            if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
-            if (sNextGeneratedId.compareAndSet(result, newValue)) {
-                return result;
-            }
-        }
+    public enum Gravity {
+        LEFT_TOP, RIGHT_TOP
     }
 }

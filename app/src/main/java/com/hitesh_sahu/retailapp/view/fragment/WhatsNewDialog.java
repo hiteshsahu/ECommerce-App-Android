@@ -1,4 +1,12 @@
 /*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
+/*
  * (c) 2012 Martin van Zuilekom (http://martin.cubeactive.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,237 +55,236 @@ import java.util.Date;
  */
 public class WhatsNewDialog {
 
-	public WhatsNewDialog(final Context context) {
-		mContext = context;
-		
-		show();
-	}
+    private static final String TAG = "ChangeLogDialog";
+    private final Context mContext;
+    private String mStyle = "h1 { margin-left: 0px; font-size: 12pt; }"
+            + "li { margin-left: 0px; font-size: 9pt; }"
+            + "ul { padding-left: 30px; }"
+            + ".summary { font-size: 9pt; color: #606060; display: block; clear: left; }"
+            + ".date { font-size: 9pt; color: #606060;  display: block; }";
 
-	private void show() {
+    public WhatsNewDialog(final Context context) {
+        mContext = context;
 
-		if (!PreferenceHelper.getPrefernceHelperInstace()
-				.getString(mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN, "0")
-				.equalsIgnoreCase(Utils.getVersion(mContext))) {
+        show();
+    }
 
-			// This version is new, show only the changes from this version (if
-			// available)
+    private void show() {
 
-			show(Utils.getVersion(mContext));
+        if (!PreferenceHelper.getPrefernceHelperInstace()
+                .getString(mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN, "0")
+                .equalsIgnoreCase(Utils.getVersion(mContext))) {
 
-			PreferenceHelper.getPrefernceHelperInstace().setString(
-					mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN,
-					Utils.getVersion(mContext));
-		}
-	}
+            // This version is new, show only the changes from this version (if
+            // available)
 
-	private static final String TAG = "ChangeLogDialog";
+            show(Utils.getVersion(mContext));
 
-	private final Context mContext;
-	private String mStyle = "h1 { margin-left: 0px; font-size: 12pt; }"
-			+ "li { margin-left: 0px; font-size: 9pt; }"
-			+ "ul { padding-left: 30px; }"
-			+ ".summary { font-size: 9pt; color: #606060; display: block; clear: left; }"
-			+ ".date { font-size: 9pt; color: #606060;  display: block; }";
+            PreferenceHelper.getPrefernceHelperInstace().setString(
+                    mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN,
+                    Utils.getVersion(mContext));
+        }
+    }
 
-	// Get the current app version
-	private String getAppVersion() {
-		String versionName = "";
-		try {
-			final PackageInfo packageInfo = mContext.getPackageManager()
-					.getPackageInfo(mContext.getPackageName(), 0);
-			versionName = packageInfo.versionName;
-		} catch (NameNotFoundException e) {
-			Log.e(TAG, e.getMessage(), e);
-		}
-		return versionName;
-	}
+    // Get the current app version
+    private String getAppVersion() {
+        String versionName = "";
+        try {
+            final PackageInfo packageInfo = mContext.getPackageManager()
+                    .getPackageInfo(mContext.getPackageName(), 0);
+            versionName = packageInfo.versionName;
+        } catch (NameNotFoundException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return versionName;
+    }
 
-	// Parse a date string from the xml and format it using the local date
-	// format
-	@SuppressLint("SimpleDateFormat")
-	private String parseDate(final String dateString) {
-		final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		try {
-			final Date parsedDate = dateFormat.parse(dateString);
-			return DateFormat.getDateFormat(mContext).format(parsedDate);
-		} catch (ParseException ignored) {
-			// If there is a problem parsing the date just return the original
-			// string
-			return dateString;
-		}
-	}
+    // Parse a date string from the xml and format it using the local date
+    // format
+    @SuppressLint("SimpleDateFormat")
+    private String parseDate(final String dateString) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            final Date parsedDate = dateFormat.parse(dateString);
+            return DateFormat.getDateFormat(mContext).format(parsedDate);
+        } catch (ParseException ignored) {
+            // If there is a problem parsing the date just return the original
+            // string
+            return dateString;
+        }
+    }
 
-	// Parse a the release tag and appends it to the changelog builder
-	private void parseReleaseTag(final StringBuilder changelogBuilder,
-			final XmlPullParser resourceParser) throws XmlPullParserException,
-			IOException {
-		changelogBuilder.append("<h1>Release: ")
-				.append(resourceParser.getAttributeValue(null, "version"))
-				.append("</h1>");
+    // Parse a the release tag and appends it to the changelog builder
+    private void parseReleaseTag(final StringBuilder changelogBuilder,
+                                 final XmlPullParser resourceParser) throws XmlPullParserException,
+            IOException {
+        changelogBuilder.append("<h1>Release: ")
+                .append(resourceParser.getAttributeValue(null, "version"))
+                .append("</h1>");
 
-		// Add date if available
-		if (resourceParser.getAttributeValue(null, "date") != null) {
-			changelogBuilder
-					.append("<span class='date'>")
-					.append(parseDate(resourceParser.getAttributeValue(null,
-							"date"))).append("</span>");
-		}
+        // Add date if available
+        if (resourceParser.getAttributeValue(null, "date") != null) {
+            changelogBuilder
+                    .append("<span class='date'>")
+                    .append(parseDate(resourceParser.getAttributeValue(null,
+                            "date"))).append("</span>");
+        }
 
-		// Add summary if available
-		if (resourceParser.getAttributeValue(null, "summary") != null) {
-			changelogBuilder.append("<span class='summary'>")
-					.append(resourceParser.getAttributeValue(null, "summary"))
-					.append("</span>");
-		}
+        // Add summary if available
+        if (resourceParser.getAttributeValue(null, "summary") != null) {
+            changelogBuilder.append("<span class='summary'>")
+                    .append(resourceParser.getAttributeValue(null, "summary"))
+                    .append("</span>");
+        }
 
-		changelogBuilder.append("<ul>");
+        changelogBuilder.append("<ul>");
 
-		// Parse child nodes
-		int eventType = resourceParser.getEventType();
-		while ((eventType != XmlPullParser.END_TAG)
-				|| (resourceParser.getName().equals("change"))) {
-			if ((eventType == XmlPullParser.START_TAG)
-					&& (resourceParser.getName().equals("change"))) {
-				eventType = resourceParser.next();
-				changelogBuilder.append("<li>" + resourceParser.getText()
-						+ "</li>");
-			}
-			eventType = resourceParser.next();
-		}
-		changelogBuilder.append("</ul>");
-	}
+        // Parse child nodes
+        int eventType = resourceParser.getEventType();
+        while ((eventType != XmlPullParser.END_TAG)
+                || (resourceParser.getName().equals("change"))) {
+            if ((eventType == XmlPullParser.START_TAG)
+                    && (resourceParser.getName().equals("change"))) {
+                eventType = resourceParser.next();
+                changelogBuilder.append("<li>" + resourceParser.getText()
+                        + "</li>");
+            }
+            eventType = resourceParser.next();
+        }
+        changelogBuilder.append("</ul>");
+    }
 
-	// CSS style for the html
-	private String getStyle() {
-		return String.format("<style type=\"text/css\">%s</style>", mStyle);
-	}
+    // CSS style for the html
+    private String getStyle() {
+        return String.format("<style type=\"text/css\">%s</style>", mStyle);
+    }
 
-	public void setStyle(final String style) {
-		mStyle = style;
-	}
+    public void setStyle(final String style) {
+        mStyle = style;
+    }
 
-	// Get the changelog in html code, this will be shown in the dialog's
-	// webview
-	private String getHTMLChangelog(final int resourceId,
-			final Resources resources, final String version) {
-		boolean releaseFound = false;
-		final StringBuilder changelogBuilder = new StringBuilder();
-		changelogBuilder.append("<html><head>").append(getStyle())
-				.append("</head><body>");
-		final XmlResourceParser xml = resources.getXml(resourceId);
-		try {
-			int eventType = xml.getEventType();
-			while (eventType != XmlPullParser.END_DOCUMENT) {
-				if ((eventType == XmlPullParser.START_TAG)
-						&& (xml.getName().equals("release"))) {
-					// Check if the version matches the release tag.
-					// When version is 0 every release tag is parsed.
-					final String versioncode = xml.getAttributeValue(null,
-							"versioncode");
-					if ((null != version) || (versioncode == version)) {
-						parseReleaseTag(changelogBuilder, xml);
-						releaseFound = true; // At lease one release tag has
-												// been parsed.
-					}
-				}
-				eventType = xml.next();
-			}
-		} catch (XmlPullParserException e) {
-			Log.e(TAG, e.getMessage(), e);
-			return "";
-		} catch (IOException e) {
-			Log.e(TAG, e.getMessage(), e);
-			return "";
-		} finally {
-			xml.close();
-		}
-		changelogBuilder.append("</body></html>");
+    // Get the changelog in html code, this will be shown in the dialog's
+    // webview
+    private String getHTMLChangelog(final int resourceId,
+                                    final Resources resources, final String version) {
+        boolean releaseFound = false;
+        final StringBuilder changelogBuilder = new StringBuilder();
+        changelogBuilder.append("<html><head>").append(getStyle())
+                .append("</head><body>");
+        final XmlResourceParser xml = resources.getXml(resourceId);
+        try {
+            int eventType = xml.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if ((eventType == XmlPullParser.START_TAG)
+                        && (xml.getName().equals("release"))) {
+                    // Check if the version matches the release tag.
+                    // When version is 0 every release tag is parsed.
+                    final String versioncode = xml.getAttributeValue(null,
+                            "versioncode");
+                    if ((null != version) || (versioncode == version)) {
+                        parseReleaseTag(changelogBuilder, xml);
+                        releaseFound = true; // At lease one release tag has
+                        // been parsed.
+                    }
+                }
+                eventType = xml.next();
+            }
+        } catch (XmlPullParserException e) {
+            Log.e(TAG, e.getMessage(), e);
+            return "";
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage(), e);
+            return "";
+        } finally {
+            xml.close();
+        }
+        changelogBuilder.append("</body></html>");
 
-		// Check if there was a release tag parsed, if not return an empty
-		// string.
-		if (releaseFound) {
-			return changelogBuilder.toString();
-		} else {
-			return "";
-		}
-	}
+        // Check if there was a release tag parsed, if not return an empty
+        // string.
+        if (releaseFound) {
+            return changelogBuilder.toString();
+        } else {
+            return "";
+        }
+    }
 
-	// Returns change log in HTML format
-	public String getHTML() {
-		// TODO: Remove duplicate code with the method show()
-		// Get resources
-		final String packageName = mContext.getPackageName();
-		final Resources resources;
-		try {
-			resources = mContext.getPackageManager()
-					.getResourcesForApplication(packageName);
-		} catch (NameNotFoundException ignored) {
-			return "";
-		}
+    // Returns change log in HTML format
+    public String getHTML() {
+        // TODO: Remove duplicate code with the method show()
+        // Get resources
+        final String packageName = mContext.getPackageName();
+        final Resources resources;
+        try {
+            resources = mContext.getPackageManager()
+                    .getResourcesForApplication(packageName);
+        } catch (NameNotFoundException ignored) {
+            return "";
+        }
 
-		// Create HTML change log
-		return getHTMLChangelog(R.xml.changelog, resources, "0");
-	}
+        // Create HTML change log
+        return getHTMLChangelog(R.xml.changelog, resources, "0");
+    }
 
-	protected void show(final String string) {
-		// Get resources
-		final String packageName = mContext.getPackageName();
-		final Resources resources;
-		try {
-			resources = mContext.getPackageManager()
-					.getResourcesForApplication(packageName);
-		} catch (NameNotFoundException ignored) {
-			return;
-		}
+    protected void show(final String string) {
+        // Get resources
+        final String packageName = mContext.getPackageName();
+        final Resources resources;
+        try {
+            resources = mContext.getPackageManager()
+                    .getResourcesForApplication(packageName);
+        } catch (NameNotFoundException ignored) {
+            return;
+        }
 
-		// Get dialog title
-		String title = resources.getString(R.string.title_changelog);
-		title = String.format("%s v%s", title, getAppVersion());
+        // Get dialog title
+        String title = resources.getString(R.string.title_changelog);
+        title = String.format("%s v%s", title, getAppVersion());
 
-		// Create html change log
-		final String htmlChangelog = getHTMLChangelog(R.xml.changelog,
-				resources, string);
+        // Create html change log
+        final String htmlChangelog = getHTMLChangelog(R.xml.changelog,
+                resources, string);
 
-		// Get button strings
-		final String closeString = resources
-				.getString(R.string.changelog_close);
+        // Get button strings
+        final String closeString = resources
+                .getString(R.string.changelog_close);
 
-		// Check for empty change log
-		if (htmlChangelog.length() == 0) {
-			// It seems like there is nothing to show, just bail out.
-			return;
-		}
+        // Check for empty change log
+        if (htmlChangelog.length() == 0) {
+            // It seems like there is nothing to show, just bail out.
+            return;
+        }
 
-		// Create web view and load html
-		final WebView webView = new WebView(mContext);
-		
-		webView.loadDataWithBaseURL(null, htmlChangelog, "text/html", "utf-8",
-				null);
-		
-		final AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
-				.setTitle(title).setView(webView)
-				
-				.setPositiveButton(closeString, new Dialog.OnClickListener() {
-					public void onClick(final DialogInterface dialogInterface,
-							final int i) {
-						dialogInterface.dismiss();
-					}
-				}).setOnCancelListener(new OnCancelListener() {
+        // Create web view and load html
+        final WebView webView = new WebView(mContext);
 
-					@Override
-					public void onCancel(DialogInterface dialog) {
-						dialog.dismiss();
-					}
-				});
-		
-		
-		AlertDialog dialog = builder.create();
-		
-		dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-			@Override
-			public void onDismiss(final DialogInterface dialog) {
-			}
-		});
-		dialog.show();
-	}
+        webView.loadDataWithBaseURL(null, htmlChangelog, "text/html", "utf-8",
+                null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+                .setTitle(title).setView(webView)
+
+                .setPositiveButton(closeString, new Dialog.OnClickListener() {
+                    public void onClick(final DialogInterface dialogInterface,
+                                        final int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).setOnCancelListener(new OnCancelListener() {
+
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+        AlertDialog dialog = builder.create();
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(final DialogInterface dialog) {
+            }
+        });
+        dialog.show();
+    }
 }

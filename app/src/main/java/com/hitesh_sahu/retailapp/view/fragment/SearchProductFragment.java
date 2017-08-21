@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.fragment;
 
 import android.content.ActivityNotFoundException;
@@ -30,24 +38,26 @@ import java.util.Locale;
 
 public class SearchProductFragment extends Fragment {
 
+    private static final int REQ_SCAN_RESULT = 200;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    ArrayList<Product> searchProductList = new ArrayList<>();
+    boolean searchInProgress = false;
     private TextView heading;
     private ImageButton btnSpeak;
-
-    private final int REQ_CODE_SPEECH_INPUT = 100;
-    private static final int REQ_SCAN_RESULT = 200;
-
     private EditText serchInput;
-    ArrayList<Product> searchProductList = new ArrayList<>();
     private ListView serachListView;
-    boolean searchInProgress = false;
 
     /** The search adapter. */
     // private SearchListArrayAdapter searchAdapter;
-
     /**
      * The root view.
      */
     private View rootView;
+
+    public static Fragment newInstance() {
+        // TODO Auto-generated method stub
+        return new SearchProductFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -190,11 +200,6 @@ public class SearchProductFragment extends Fragment {
 
         }
 
-    }
-
-    public static Fragment newInstance() {
-        // TODO Auto-generated method stub
-        return new SearchProductFragment();
     }
 
 }

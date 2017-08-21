@@ -1,11 +1,18 @@
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="clip_horizontal"
     android:background="@color/material_blue_500"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtSpeech_heading"
@@ -34,7 +41,7 @@
         android:id="@+id/search_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtSpeech_heading" >
+        android:layout_below="@+id/txtSpeech_heading">
 
         <EditText
             android:id="@+id/edt_search_input"
@@ -69,8 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search_root"
-        android:visibility="visible" >
-    </ListView>
+        android:visibility="visible"></ListView>
 
     <TextView
         android:id="@+id/txtSpeechInput"

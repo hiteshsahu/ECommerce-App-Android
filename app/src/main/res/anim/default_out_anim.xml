@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+  ~ along with the project.
+  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  -->
+
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <alpha
         android:duration="2000"
         android:fromAlpha="1.0"
-        android:startOffset="3000"
         android:interpolator="@android:anim/accelerate_interpolator"
+        android:startOffset="3000"
         android:toAlpha="0.0" />
     <scale
         android:duration="2000"
-        android:pivotX="50%p"
-        android:pivotY="50%p"
         android:fromXScale="1.0"
         android:fromYScale="1.0"
+        android:pivotX="50%p"
+        android:pivotY="50%p"
         android:toXScale="1.2"
         android:toYScale="1.2" />
 </set>

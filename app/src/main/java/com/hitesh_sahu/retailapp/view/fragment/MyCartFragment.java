@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
+ * along with the project.
+ *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+ */
+
 package com.hitesh_sahu.retailapp.view.fragment;
 
 import android.os.Bundle;
@@ -26,146 +34,143 @@ import com.hitesh_sahu.retailapp.view.customview.SimpleItemTouchHelperCallback;
 
 public class MyCartFragment extends Fragment implements OnStartDragListener {
 
-	public MyCartFragment() {
-	}
+    private static FrameLayout noItemDefault;
+    private static RecyclerView recyclerView;
+    private ItemTouchHelper mItemTouchHelper;
+    public MyCartFragment() {
+    }
 
-	private ItemTouchHelper mItemTouchHelper;
-	private static FrameLayout noItemDefault;
-	private static RecyclerView recyclerView;
+    /**
+     * @param rootView
+     * @param myCartListView
+     */
+    public static void updateMyCartFragment(boolean showList) {
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.frag_product_list_fragment, container,
-				false);
+        if (showList) {
 
-		view.findViewById(R.id.slide_down).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.slide_down).setOnTouchListener(
-				new OnTouchListener() {
+            if (null != recyclerView && null != noItemDefault) {
+                recyclerView.setVisibility(View.VISIBLE);
 
-					@Override
-					public boolean onTouch(View v, MotionEvent event) {
+                noItemDefault.setVisibility(View.GONE);
+            }
+        } else {
+            if (null != recyclerView && null != noItemDefault) {
+                recyclerView.setVisibility(View.GONE);
 
-						Utils.switchFragmentWithAnimation(R.id.frag_container,
-								new HomeFragment(),
-								((ECartHomeActivity) (getContext())),
-								Utils.HOME_FRAGMENT, AnimationType.SLIDE_DOWN);
+                noItemDefault.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
-						return false;
-					}
-				});
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_product_list_fragment, container,
+                false);
 
-		// Fill Recycler View
+        view.findViewById(R.id.slide_down).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.slide_down).setOnTouchListener(
+                new OnTouchListener() {
 
-		noItemDefault = (FrameLayout) view.findViewById(R.id.default_nodata);
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
 
-		recyclerView = (RecyclerView) view
-				.findViewById(R.id.product_list_recycler_view);
+                        Utils.switchFragmentWithAnimation(R.id.frag_container,
+                                new HomeFragment(),
+                                ((ECartHomeActivity) (getContext())),
+                                Utils.HOME_FRAGMENT, AnimationType.SLIDE_DOWN);
 
-		if (CenterRepository.getCenterRepository().getListOfProductsInShoppingList().size() != 0) {
+                        return false;
+                    }
+                });
 
-			LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-					getActivity().getBaseContext());
+        // Fill Recycler View
 
-			recyclerView.setLayoutManager(linearLayoutManager);
-			recyclerView.setHasFixedSize(true);
+        noItemDefault = (FrameLayout) view.findViewById(R.id.default_nodata);
 
-			ShoppingListAdapter shoppinListAdapter = new ShoppingListAdapter(
-					getActivity(), this);
+        recyclerView = (RecyclerView) view
+                .findViewById(R.id.product_list_recycler_view);
 
-			recyclerView.setAdapter(shoppinListAdapter);
+        if (CenterRepository.getCenterRepository().getListOfProductsInShoppingList().size() != 0) {
 
-			shoppinListAdapter
-					.SetOnItemClickListener(new OnItemClickListener() {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                    getActivity().getBaseContext());
 
-						@Override
-						public void onItemClick(View view, int position) {
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setHasFixedSize(true);
 
-							Utils.switchFragmentWithAnimation(
-									R.id.frag_container,
-									new ProductDetailsFragment("", position,
-											true),
-									((ECartHomeActivity) (getContext())), null,
-									AnimationType.SLIDE_LEFT);
+            ShoppingListAdapter shoppinListAdapter = new ShoppingListAdapter(
+                    getActivity(), this);
 
-						}
-					});
+            recyclerView.setAdapter(shoppinListAdapter);
 
-			ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(
-					shoppinListAdapter);
-			mItemTouchHelper = new ItemTouchHelper(callback);
-			mItemTouchHelper.attachToRecyclerView(recyclerView);
+            shoppinListAdapter
+                    .SetOnItemClickListener(new OnItemClickListener() {
 
-		}
+                        @Override
+                        public void onItemClick(View view, int position) {
 
-		else {
+                            Utils.switchFragmentWithAnimation(
+                                    R.id.frag_container,
+                                    new ProductDetailsFragment("", position,
+                                            true),
+                                    ((ECartHomeActivity) (getContext())), null,
+                                    AnimationType.SLIDE_LEFT);
 
-			updateMyCartFragment(false);
+                        }
+                    });
 
-		}
+            ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(
+                    shoppinListAdapter);
+            mItemTouchHelper = new ItemTouchHelper(callback);
+            mItemTouchHelper.attachToRecyclerView(recyclerView);
 
-		view.findViewById(R.id.start_shopping).setOnClickListener(
-				new OnClickListener() {
+        } else {
 
-					@Override
-					public void onClick(View v) {
-						Utils.switchContent(R.id.frag_container,
-								Utils.HOME_FRAGMENT,
-								((ECartHomeActivity) (getContext())),
-								AnimationType.SLIDE_UP);
+            updateMyCartFragment(false);
 
-					}
-				});
+        }
 
-		// Handle Back press
-		view.setFocusableInTouchMode(true);
-		view.requestFocus();
-		view.setOnKeyListener(new View.OnKeyListener() {
+        view.findViewById(R.id.start_shopping).setOnClickListener(
+                new OnClickListener() {
 
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.switchContent(R.id.frag_container,
+                                Utils.HOME_FRAGMENT,
+                                ((ECartHomeActivity) (getContext())),
+                                AnimationType.SLIDE_UP);
 
-				if (event.getAction() == KeyEvent.ACTION_UP
-						&& keyCode == KeyEvent.KEYCODE_BACK) {
+                    }
+                });
 
-					Utils.switchContent(R.id.frag_container,
-							Utils.HOME_FRAGMENT,
-							((ECartHomeActivity) (getContext())),
-							AnimationType.SLIDE_UP);
+        // Handle Back press
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
 
-				}
-				return true;
-			}
-		});
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-		return view;
-	}
+                if (event.getAction() == KeyEvent.ACTION_UP
+                        && keyCode == KeyEvent.KEYCODE_BACK) {
 
-	@Override
-	public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-		mItemTouchHelper.startDrag(viewHolder);
-	}
+                    Utils.switchContent(R.id.frag_container,
+                            Utils.HOME_FRAGMENT,
+                            ((ECartHomeActivity) (getContext())),
+                            AnimationType.SLIDE_UP);
 
-	/**
-	 * @param rootView
-	 * @param myCartListView
-	 */
-	public static void updateMyCartFragment(boolean showList) {
+                }
+                return true;
+            }
+        });
 
-		if (showList) {
+        return view;
+    }
 
-			if (null != recyclerView && null != noItemDefault) {
-				recyclerView.setVisibility(View.VISIBLE);
-
-				noItemDefault.setVisibility(View.GONE);
-			}
-		} else {
-			if (null != recyclerView && null != noItemDefault) {
-				recyclerView.setVisibility(View.GONE);
-
-				noItemDefault.setVisibility(View.VISIBLE);
-			}
-		}
-	}
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
+    }
 
 }
