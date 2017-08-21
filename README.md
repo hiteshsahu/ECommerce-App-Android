@@ -27,6 +27,10 @@
 - Back End Web Server with Web API (I can build one but it gone cost you)
 - Admin Panel(I can build one but it gone cost you)
 
+## Got any Issue or Change Request :- 
+
+Log it into Issue Tracker and please don't mail me. I am going to stop to replying to mails and whatsapp messages from June 2017.
+
 ## Screen shots
 
 ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
