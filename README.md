@@ -39,25 +39,17 @@ Log it into Issue Tracker and please don't mail me. I am going to stop to replyi
 
 ## Screen shots
 
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/nav_drawer.png "Nav")
-  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/persistance_storage_onrelaunch.png "Nav")
+<img src="https://lh3.googleusercontent.com/PjO9tgrzKjF6MfYQasTqPeErOhjAn4O6dFNhPFOCnm0YDaupeMPyG2w9ksPRFTl1FBs=h900-rw" width="30%"> <img src="https://lh3.googleusercontent.com/J0V39pYVwn30_oFho_8slmzZeEJfidPxvvkis2WvN5okLeU7VMeXaq6rmpf2-IUJMQw=h900-rw" width="30%"> 
+<img src="https://lh3.googleusercontent.com/aD4Kg_t-tVNfoHBIRFiSBdps1FR5w30bwYbr0YgvvnBM0E9WOrIShw44f5PUbCUpV0c=h900-rw" width="30%"> 
+<img src="https://lh3.googleusercontent.com/JvVqqZlbEQj-Lmmct8K7r_8kWjXxVYUgFL-iouw82Axtx0L8uZrmz6_-HTf6QVcAH2E=h900-rw" width="30%"> 
+<img src="https://lh3.googleusercontent.com/-ue0UtrZX08o93k2AlgmgmX5_H65GF_k4nvHJ9Ht_6eNU9lrnh3-BgEjbFIgUYAeFHU=h900-rw" width="30%"> 
+<img src="https://lh3.googleusercontent.com/JINS__oyd4GSTf6_OpKYCQ0JNBFBJMF0jS8GTAcTEwqMZJdBNjT45eiUEzleWFzt7Y3v=h900-rw" width="30%"> 
 
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/home_screen.png "Home")
-  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_category.png "Products")
 
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/collapsable_header_category.png "Products list")
-  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail_from_cart.png "Products detail")
+## Tablet
+<img src="https://lh3.googleusercontent.com/4Xvu3RsXxqjNmWxLHWJYanduFzO8dKSfy_DTDXueXZoq59PXrq5qAaJo1DkCeReF29M=h900-rw" width="30%">
+<img src="https://lh3.googleusercontent.com/1ppqAnH5KlC0kTnvon1Ln-PTeQaEeT68R1OSmOK2OmlhErUweu6tnPm2zujnMpVrNcM=h900-rw" width="30%">
 
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/checkout_screen_visble_amount.png "Checkout list")
- ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/empty_cart.png "Empty cart")
-
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/visivle_total_amount.png "Collapse cart")
-  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/visivle_total_amount_from_product_detail.png "Collapsable cart")
-  
-![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail.png "Collapse cart")
-  ![Alt text](https://github.com/hiteshsahu/ECommerce-App-Android-/blob/master/Art/product_detail_suggestions.png "Collapsable cart")
-  
-  
 # Terms of Use
 
 If you using this project or parts of it please ping me on [ Google+](https://plus.google.com/u/0/+HiteshSahu7) and let me know. I would like to add your  product in feature page.
