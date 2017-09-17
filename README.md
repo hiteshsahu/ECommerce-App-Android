@@ -40,16 +40,11 @@ Log it into Issue Tracker and please don't mail me. I am going to stop to replyi
 
 ## Screen shots
 
-<img src="https://lh3.googleusercontent.com/J0V39pYVwn30_oFho_8slmzZeEJfidPxvvkis2WvN5okLeU7VMeXaq6rmpf2-IUJMQw=h900-rw" width="30%"> 
-<img src="https://lh3.googleusercontent.com/5T7tZxg9n58-ZEBBbBrr8OJjmtjf5lmrtulY-oFoMLypFdGpnkHiQfUqAKI1T2MEsvw=h900-rw" width="30%"> 
-<img src="https://lh3.googleusercontent.com/aD4Kg_t-tVNfoHBIRFiSBdps1FR5w30bwYbr0YgvvnBM0E9WOrIShw44f5PUbCUpV0c=h900-rw" width="30%"> 
-<img src="https://lh3.googleusercontent.com/JvVqqZlbEQj-Lmmct8K7r_8kWjXxVYUgFL-iouw82Axtx0L8uZrmz6_-HTf6QVcAH2E=h900-rw" width="30%"> 
-<img src="https://lh3.googleusercontent.com/-ue0UtrZX08o93k2AlgmgmX5_H65GF_k4nvHJ9Ht_6eNU9lrnh3-BgEjbFIgUYAeFHU=h900-rw" width="30%"> 
-<img src="https://lh3.googleusercontent.com/JINS__oyd4GSTf6_OpKYCQ0JNBFBJMF0jS8GTAcTEwqMZJdBNjT45eiUEzleWFzt7Y3v=h900-rw" width="30%"> 
+<img src="https://lh3.googleusercontent.com/J0V39pYVwn30_oFho_8slmzZeEJfidPxvvkis2WvN5okLeU7VMeXaq6rmpf2-IUJMQw=h900-rw" width="30%"> <img src="https://lh3.googleusercontent.com/5T7tZxg9n58-ZEBBbBrr8OJjmtjf5lmrtulY-oFoMLypFdGpnkHiQfUqAKI1T2MEsvw=h900-rw" width="30%"> <img src="https://lh3.googleusercontent.com/aD4Kg_t-tVNfoHBIRFiSBdps1FR5w30bwYbr0YgvvnBM0E9WOrIShw44f5PUbCUpV0c=h900-rw" width="30%"> <img src="https://lh3.googleusercontent.com/JvVqqZlbEQj-Lmmct8K7r_8kWjXxVYUgFL-iouw82Axtx0L8uZrmz6_-HTf6QVcAH2E=h900-rw" width="30%"> <img src="https://lh3.googleusercontent.com/-ue0UtrZX08o93k2AlgmgmX5_H65GF_k4nvHJ9Ht_6eNU9lrnh3-BgEjbFIgUYAeFHU=h900-rw" width="30%"> <img src="https://lh3.googleusercontent.com/JINS__oyd4GSTf6_OpKYCQ0JNBFBJMF0jS8GTAcTEwqMZJdBNjT45eiUEzleWFzt7Y3v=h900-rw" width="30%"> 
 
 
 ## Tablet
-<img src="https://lh3.googleusercontent.com/4Xvu3RsXxqjNmWxLHWJYanduFzO8dKSfy_DTDXueXZoq59PXrq5qAaJo1DkCeReF29M=h900-rw" width="50%"><img src="https://lh3.googleusercontent.com/1ppqAnH5KlC0kTnvon1Ln-PTeQaEeT68R1OSmOK2OmlhErUweu6tnPm2zujnMpVrNcM=h900-rw" width="50%">
+<img src="https://lh3.googleusercontent.com/4Xvu3RsXxqjNmWxLHWJYanduFzO8dKSfy_DTDXueXZoq59PXrq5qAaJo1DkCeReF29M=h900-rw" width="80%"><img src="https://lh3.googleusercontent.com/1ppqAnH5KlC0kTnvon1Ln-PTeQaEeT68R1OSmOK2OmlhErUweu6tnPm2zujnMpVrNcM=h900-rw" width="80%">
 
 # Legal
 
