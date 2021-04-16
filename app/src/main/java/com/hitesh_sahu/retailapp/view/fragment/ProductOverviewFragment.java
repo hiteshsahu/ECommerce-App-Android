@@ -11,19 +11,20 @@ package com.hitesh_sahu.retailapp.view.fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.palette.graphics.Palette;
+import androidx.viewpager.widget.ViewPager;
+
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.hitesh_sahu.retailapp.R;
 import com.hitesh_sahu.retailapp.domain.mock.FakeWebServer;
 import com.hitesh_sahu.retailapp.model.CenterRepository;

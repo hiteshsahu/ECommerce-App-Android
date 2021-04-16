@@ -10,8 +10,9 @@ package com.hitesh_sahu.retailapp.domain.api;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hitesh_sahu.retailapp.R;
 import com.hitesh_sahu.retailapp.domain.mock.FakeWebServer;
