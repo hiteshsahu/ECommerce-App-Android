@@ -8,7 +8,7 @@
   ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
   -->
 
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_transparent"
     android:layout_width="match_parent"

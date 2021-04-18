@@ -10,11 +10,12 @@ package com.hitesh_sahu.retailapp.domain.api;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.hitesh_sahu.retailapp.domain.mock.FakeWebServer;
 import com.hitesh_sahu.retailapp.model.CenterRepository;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
