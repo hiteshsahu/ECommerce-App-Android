@@ -75,8 +75,9 @@ public class SplashActivity extends FragmentActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                Intent intent = new Intent(getApplicationContext(),
-                        ECartHomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+//                Intent intent = new Intent(getApplicationContext(),
+//                        ECartHomeActivity.class);
                 startActivity(intent);
                 finish();
             }
