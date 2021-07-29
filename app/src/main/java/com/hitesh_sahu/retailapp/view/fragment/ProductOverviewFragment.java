@@ -269,7 +269,7 @@ public class ProductOverviewFragment extends Fragment {
 	/*void fillProductMapFromCache() {
 
 		String cached_ProductMapJSON = PreferenceHelper
-				.getPrefernceHelperInstace().getString(
+				.getPreferenceHelperInstance().getString(
 						PreferenceHelper.ALL_PRODUCT_LIST_RESPONSE_JSON, null);
 
 		if (null != cached_ProductMapJSON) {
@@ -299,7 +299,7 @@ public class ProductOverviewFragment extends Fragment {
 									response.toString()).parse();
 
 							PreferenceHelper
-									.getPrefernceHelperInstace()
+									.getPreferenceHelperInstance()
 									.setString(
 											PreferenceHelper.ALL_PRODUCT_LIST_RESPONSE_JSON,
 											response.toString());

@@ -86,7 +86,7 @@ public class ECartHomeActivity extends AppCompatActivity {
 
         checkOutAmount = (TextView) findViewById(R.id.checkout_amount);
         checkOutAmount.setSelected(true);
-        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+        checkOutAmount.setText(Money.toCurrency(checkoutAmount).toString());
         offerBanner.setSelected(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer);
@@ -258,7 +258,7 @@ public class ECartHomeActivity extends AppCompatActivity {
                 checkoutAmount = checkoutAmount.subtract(amount);
         }
 
-        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+        checkOutAmount.setText(Money.toCurrency(checkoutAmount).toString());
     }
 
     @Override
@@ -423,7 +423,7 @@ public class ECartHomeActivity extends AppCompatActivity {
                         itemCount = 0;
                         itemCountTextView.setText(String.valueOf(0));
                         checkoutAmount = new BigDecimal(BigInteger.ZERO);
-                        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+                        checkOutAmount.setText(Money.toCurrency(checkoutAmount).toString());
 
                     }
                 });
@@ -441,7 +441,7 @@ public class ECartHomeActivity extends AppCompatActivity {
             public void onDismiss(DialogInterface dialog) {
                 Snackbar.make(ECartHomeActivity.this.getWindow().getDecorView().findViewById(android.R.id.content)
                         , "Order Placed Successfully, Happy Shopping !!", Snackbar.LENGTH_LONG)
-                        .setAction("View Apriori Output", new View.OnClickListener() {
+                        .setAction("View Apriori Output", new OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 startActivity(new Intent(ECartHomeActivity.this, APrioriResultActivity.class));

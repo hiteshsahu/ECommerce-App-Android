@@ -99,7 +99,7 @@ public class ProductDetailsFragment extends Fragment {
 
         mToolbar.setTitleTextColor(Color.WHITE);
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ECartHomeActivity) getActivity()).getmDrawerLayout()
@@ -485,14 +485,14 @@ public class ProductDetailsFragment extends Fragment {
                     .getMapOfProductsInCategory().get(subcategoryKey).get(productListNumber)
                     .getItemDetail());
 
-            String sellCostString = Money.rupees(
+            String sellCostString = Money.toCurrency(
                     BigDecimal.valueOf(Long.valueOf(CenterRepository
                             .getCenterRepository().getMapOfProductsInCategory()
                             .get(subcategoryKey).get(productListNumber)
                             .getSellMRP()))).toString()
                     + "  ";
 
-            String buyMRP = Money.rupees(
+            String buyMRP = Money.toCurrency(
                     BigDecimal.valueOf(Long.valueOf(CenterRepository
                             .getCenterRepository().getMapOfProductsInCategory()
                             .get(subcategoryKey).get(productListNumber)
@@ -567,13 +567,13 @@ public class ProductDetailsFragment extends Fragment {
             itemdescription.setText(CenterRepository.getCenterRepository()
                     .getListOfProductsInShoppingList().get(productListNumber).getItemDetail());
 
-            String sellCostString = Money.rupees(
+            String sellCostString = Money.toCurrency(
                     BigDecimal.valueOf(Long.valueOf(CenterRepository
                             .getCenterRepository().getListOfProductsInShoppingList()
                             .get(productListNumber).getSellMRP()))).toString()
                     + "  ";
 
-            String buyMRP = Money.rupees(
+            String buyMRP = Money.toCurrency(
                     BigDecimal.valueOf(Long.valueOf(CenterRepository
                             .getCenterRepository().getListOfProductsInShoppingList()
                             .get(productListNumber).getMRP()))).toString();

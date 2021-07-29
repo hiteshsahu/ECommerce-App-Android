@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
-  ~ Unauthorized copying of this file, via any medium is strictly prohibited
-  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
-  ~ along with the project.
-  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hitesh_sahu.retailapp">
-
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,10 +9,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AppController"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/MyTheme">
 
         <!-- Single Activity Model-->
@@ -38,17 +26,15 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
 
-        <!-- Splash Activity -->
-        <activity
-            android:name=".view.activities.SplashActivity"
+        <activity android:name=".view.activities.SplashActivity"
             android:noHistory="true"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

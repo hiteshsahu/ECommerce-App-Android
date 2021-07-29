@@ -79,7 +79,7 @@ public class SettingsFragment extends Fragment {
 
         }
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ECartHomeActivity) getActivity()).getmDrawerLayout()
@@ -91,7 +91,7 @@ public class SettingsFragment extends Fragment {
 
         submitLog = (TextView) rootView.findViewById(R.id.submit_log_txt);
 
-        if (PreferenceHelper.getPrefernceHelperInstace().getBoolean(
+        if (PreferenceHelper.getPreferenceHelperInstance().getBoolean(
                 getActivity(), PreferenceHelper.SUBMIT_LOGS, true)) {
 
             submitLog.setText("Disable");
@@ -105,17 +105,17 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        if (PreferenceHelper.getPrefernceHelperInstace()
+                        if (PreferenceHelper.getPreferenceHelperInstance()
                                 .getBoolean(getActivity(),
                                         PreferenceHelper.SUBMIT_LOGS, true)) {
                             PreferenceHelper
-                                    .getPrefernceHelperInstace()
+                                    .getPreferenceHelperInstance()
                                     .setBoolean(getActivity(),
                                             PreferenceHelper.SUBMIT_LOGS, false);
 
                             submitLog.setText("Disable");
                         } else {
-                            PreferenceHelper.getPrefernceHelperInstace()
+                            PreferenceHelper.getPreferenceHelperInstance()
                                     .setBoolean(getActivity(),
                                             PreferenceHelper.SUBMIT_LOGS, true);
                             submitLog.setText("Enable");
@@ -213,16 +213,16 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final Intent emailIntent = new Intent(
-                                android.content.Intent.ACTION_SEND);
+                                Intent.ACTION_SEND);
                         emailIntent.setType("text/plain");
                         emailIntent
                                 .putExtra(
-                                        android.content.Intent.EXTRA_EMAIL,
+                                        Intent.EXTRA_EMAIL,
                                         new String[]{"serveroverloadofficial@gmail.com"});
                         emailIntent.putExtra(
-                                android.content.Intent.EXTRA_SUBJECT,
+                                Intent.EXTRA_SUBJECT,
                                 "Hello There");
-                        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                        emailIntent.putExtra(Intent.EXTRA_TEXT,
                                 "Add Message here");
 
                         emailIntent.setType("message/rfc822");

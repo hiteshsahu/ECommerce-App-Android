@@ -48,7 +48,6 @@ import java.util.List;
 /**
  * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to
  * respond to move and dismiss events from a
- * {@link android.support.v7.widget.helper.ItemTouchHelper}.
  *
  * @author Hitesh Sahu (hiteshsahu.com)
  */
@@ -88,12 +87,12 @@ public class ShoppingListAdapter extends
 
         holder.itemDesc.setText(productList.get(position).getItemShortDesc());
 
-        String sellCostString = Money.rupees(
+        String sellCostString = Money.toCurrency(
                 BigDecimal.valueOf(Long.valueOf(productList.get(position)
                         .getSellMRP()))).toString()
                 + "  ";
 
-        String buyMRP = Money.rupees(
+        String buyMRP = Money.toCurrency(
                 BigDecimal.valueOf(Long.valueOf(productList.get(position)
                         .getMRP()))).toString();
 
@@ -272,7 +271,7 @@ public class ShoppingListAdapter extends
      * a drag event when touched.
      */
     public static class ItemViewHolder extends RecyclerView.ViewHolder
-            implements ItemTouchHelperViewHolder, View.OnClickListener {
+            implements ItemTouchHelperViewHolder, OnClickListener {
 
         // public final ImageView handleView;
 

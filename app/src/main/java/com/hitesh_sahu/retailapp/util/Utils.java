@@ -82,7 +82,7 @@ public class Utils {
 //	public static PageTransformer currentPageTransformer(Context context) {
 //		PageTransformer transformer = null;
 //
-//		switch (PreferenceHelper.getPrefernceHelperInstace().getInteger(
+//		switch (PreferenceHelper.getPreferenceHelperInstance().getInteger(
 //				context, AppConstants.VIEW_PAGER_ANIME, 13)) {
 //		case AppConstants.STANDARD:
 //

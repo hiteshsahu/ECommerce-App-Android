@@ -1,51 +1,53 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.hitesh_sahu.retailshop"
         minSdkVersion 14
-        targetSdkVersion 30
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
-    //Material design
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'com.google.android.material:material:1.4.0' //1.3.0
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+
+//    implementation 'com.android.support:animated-vector-drawable:28.0.0'
+//    implementation 'com.android.support:support-v4:23.2.0'
+
+    implementation 'androidx.appcompat:appcompat:1.3.1' //1.2.0
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'ch.acra:acra:4.8.5'
-    compile files('libs/com.google.guava_1.6.0.jar')
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'ch.acra:acra:4.9.0' //4.8.5
+
+    implementation files('libs/com.google.guava_1.6.0.jar')
+
+    implementation 'com.github.bumptech.glide:glide:3.7.0' //4.8.0
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
-
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 
     //Loading animations
     implementation 'com.wang.avi:library:1.0.5'
     implementation 'com.nineoldandroids:library:2.4.0'
 
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+

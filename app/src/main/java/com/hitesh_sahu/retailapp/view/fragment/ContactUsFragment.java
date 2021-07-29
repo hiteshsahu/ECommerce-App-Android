@@ -70,7 +70,7 @@ public class ContactUsFragment extends Fragment {
 
         }
 
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ECartHomeActivity) getActivity()).getmDrawerLayout()
@@ -142,16 +142,16 @@ public class ContactUsFragment extends Fragment {
                     public void onClick(View v) {
 
                         final Intent emailIntent = new Intent(
-                                android.content.Intent.ACTION_SEND);
+                                Intent.ACTION_SEND);
                         emailIntent.setType("text/plain");
                         emailIntent
                                 .putExtra(
-                                        android.content.Intent.EXTRA_EMAIL,
+                                        Intent.EXTRA_EMAIL,
                                         new String[]{"hiteshkrsahu@gmail.com"});
                         emailIntent.putExtra(
-                                android.content.Intent.EXTRA_SUBJECT,
+                                Intent.EXTRA_SUBJECT,
                                 "Hello There");
-                        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                        emailIntent.putExtra(Intent.EXTRA_TEXT,
                                 "Add Message here");
 
                         emailIntent.setType("message/rfc822");
