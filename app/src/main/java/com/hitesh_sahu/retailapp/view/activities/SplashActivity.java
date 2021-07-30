@@ -1,9 +1,11 @@
 package com.hitesh_sahu.retailapp.view.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -12,6 +14,11 @@ import android.widget.TextView;
 import com.hitesh_sahu.retailapp.R;
 import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 public class SplashActivity extends FragmentActivity {
@@ -42,9 +49,13 @@ public class SplashActivity extends FragmentActivity {
                 endSplash();
             }
         }, 3000);
-
     }
 
+    private void startHomeActivity() {
+        Intent intent = new Intent(getApplicationContext(), ECartHomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     private void flyIn() {
         animation = AnimationUtils.loadAnimation(this, R.anim.logo_animation);
@@ -74,11 +85,7 @@ public class SplashActivity extends FragmentActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
-
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-//                Intent intent = new Intent(getApplicationContext(),
-//                        ECartHomeActivity.class);
-                startActivity(intent);
+                startHomeActivity();
                 finish();
             }
 

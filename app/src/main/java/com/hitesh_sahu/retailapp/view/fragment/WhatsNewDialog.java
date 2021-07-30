@@ -75,8 +75,7 @@ public class WhatsNewDialog {
                 .getString(mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN, "0")
                 .equalsIgnoreCase(Utils.getVersion(mContext))) {
 
-            // This version is new, show only the changes from this version (if
-            // available)
+            // This version is new, show only the changes from this version (if available)
 
             show(Utils.getVersion(mContext));
 

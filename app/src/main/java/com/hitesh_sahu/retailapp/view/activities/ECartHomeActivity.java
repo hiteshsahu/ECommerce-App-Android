@@ -8,6 +8,7 @@
 
 package com.hitesh_sahu.retailapp.view.activities;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -68,6 +73,35 @@ public class ECartHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecart);
+
+
+
+        // Show Signup form if the user is not registered
+        if (!PreferenceHelper.getPreferenceHelperInstance()
+                .isUserLoggedIn(getApplicationContext())){
+
+            Intent signupData = new Intent(getApplicationContext(), SignupActivity.class);
+
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == Activity.RESULT_OK) {
+                                Intent signupData = result.getData();
+                                if (signupData.getBooleanExtra(SignupActivity.RESULT, false)){
+                                    // Get user signup data
+//                                    signupData.getStringExtra("username");
+//                                    signupData.getStringExtra("tel");
+//                                    signupData.getStringExtra("email");
+                                    PreferenceHelper.getPreferenceHelperInstance()
+                                            .setUserLoggedIn(true, getApplicationContext());
+                                }
+                            }
+                        }
+                    }).launch( signupData );
+        }
+
 
         CenterRepository.getCenterRepository().setListOfProductsInShoppingList(
                 new TinyDB(getApplicationContext()).getListObject(
