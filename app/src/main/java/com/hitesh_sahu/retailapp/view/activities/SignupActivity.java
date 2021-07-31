@@ -3,6 +3,7 @@ package com.hitesh_sahu.retailapp.view.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
@@ -42,6 +43,12 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class SignupActivity extends AppCompatActivity {
 
     public static final String RESULT = "result";
+
+    // User Information
+    public static final String USERNAME = "username";
+    public static final String EMAIL = "email";
+    public static final String TEL = "tel";
+
     /**
      * Keep track of the signup task to ensure we can cancel it if requested.
      */
@@ -60,11 +67,10 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         // Set up the signup form.
         mEmailView = findViewById(R.id.email);
+        mTelView = findViewById(R.id.tel);
+        mUsernameView = findViewById(R.id.username);
 
-        mTelView = (EditText) findViewById(R.id.tel);
-        mUsernameView = (EditText) findViewById(R.id.username);
-
-        Button mSignupButton = (Button) findViewById(R.id.signup_button);
+        Button mSignupButton = findViewById(R.id.signup_button);
         mSignupButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +79,7 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         mSignupFormView = findViewById(R.id.signup_form);
-        mProgressView = (AVLoadingIndicatorView) findViewById(R.id.signup_progress);
+        mProgressView = findViewById(R.id.signup_progress);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             Window w = getWindow();
@@ -98,12 +104,14 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         // Reset errors.
+        mUsernameView.setError(null);
         mEmailView.setError(null);
         mTelView.setError(null);
 
         // Store values at the time of the signup attempt.
-        String email = mEmailView.getText().toString();
-        String tel = mTelView.getText().toString();
+        String username = mUsernameView.getText().toString().trim();
+        String email = mEmailView.getText().toString().trim();
+        String tel = mTelView.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
@@ -115,10 +123,14 @@ public class SignupActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid email address.
+        // Check for user inputs
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
+            cancel = true;
+        } else if (TextUtils.isEmpty(username)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
             cancel = true;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
@@ -134,7 +146,7 @@ public class SignupActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user signup attempt.
             showProgress(true);
-            mAuthTask = new UserSignupTask(email, tel);
+            mAuthTask = new UserSignupTask(username, email, tel);
             mAuthTask.execute((Void) null);
         }
     }
@@ -146,7 +158,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private boolean isTelValid(String value) {
         //TODO: Replace this with your own logic
-        return value.length() >= 3;
+        return (value.startsWith("0")) && (value.length() == 10);
     }
 
     /**
@@ -192,10 +204,12 @@ public class SignupActivity extends AppCompatActivity {
      */
     public class UserSignupTask extends AsyncTask<Void, Void, Boolean> {
 
+        private final String mUsername;
         private final String mEmail;
         private final String mTel;
 
-        UserSignupTask(String email, String tel) {
+        UserSignupTask(String username, String email, String tel) {
+            mUsername = username;
             mEmail = email;
             mTel = tel;
         }
@@ -219,18 +233,19 @@ public class SignupActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-//            if (success) {
-//                Intent returnIntent = new Intent();
-//                returnIntent.putExtra("result", 1);
-//                finish();
-//            } else {
-//                mTelView.setError(getString(R.string.error_incorrect_password));
-//                mTelView.requestFocus();
-//            }
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra( RESULT, success);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra( RESULT, success);
+            if (success) {
                 setResult(RESULT_OK, returnIntent);
+                returnIntent.putExtra( USERNAME, mUsername);
+                returnIntent.putExtra( EMAIL, mEmail);
+                returnIntent.putExtra( TEL, mTel);
                 finish();
+            } else {
+                mTelView.setError(getString(R.string.error_invalid_data));
+                mTelView.requestFocus();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
+            }
         }
 
         @Override

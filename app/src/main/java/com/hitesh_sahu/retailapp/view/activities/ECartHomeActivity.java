@@ -80,7 +80,7 @@ public class ECartHomeActivity extends AppCompatActivity {
         if (!PreferenceHelper.getPreferenceHelperInstance()
                 .isUserLoggedIn(getApplicationContext())){
 
-            Intent signupData = new Intent(getApplicationContext(), SignupActivity.class);
+            Intent signupIntent = new Intent(getApplicationContext(), SignupActivity.class);
 
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -88,18 +88,23 @@ public class ECartHomeActivity extends AppCompatActivity {
                         @Override
                         public void onActivityResult(ActivityResult result) {
                             if (result.getResultCode() == Activity.RESULT_OK) {
-                                Intent signupData = result.getData();
-                                if (signupData.getBooleanExtra(SignupActivity.RESULT, false)){
+                                Intent data = result.getData();
+                                if (data.getBooleanExtra(SignupActivity.RESULT, false)){
+                                    PreferenceHelper preferenceHelper = PreferenceHelper.getPreferenceHelperInstance();
                                     // Get user signup data
-//                                    signupData.getStringExtra("username");
-//                                    signupData.getStringExtra("tel");
-//                                    signupData.getStringExtra("email");
-                                    PreferenceHelper.getPreferenceHelperInstance()
-                                            .setUserLoggedIn(true, getApplicationContext());
+                                    preferenceHelper.setString(getApplicationContext(),
+                                            SignupActivity.USERNAME, data.getStringExtra(SignupActivity.USERNAME));
+                                    preferenceHelper.setString(getApplicationContext(),
+                                            SignupActivity.EMAIL, data.getStringExtra(SignupActivity.EMAIL));
+                                    preferenceHelper.setString(getApplicationContext(),
+                                            SignupActivity.TEL, data.getStringExtra(SignupActivity.TEL));
+                                    preferenceHelper.setUserLoggedIn(true, getApplicationContext());
                                 }
+                            } else {
+                                finish();
                             }
                         }
-                    }).launch( signupData );
+                    }).launch( signupIntent );
         }
 
 
