@@ -61,6 +61,23 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:typeface="serif" />
+        <TextView
+            android:id="@+id/track_txt2"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pro_txt"
+            android:layout_below="@+id/track_txt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="1.0"
+            android:text="@string/app_name"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:typeface="serif" />
     </RelativeLayout>
 
 </FrameLayout>

@@ -9,6 +9,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a652380b28af31d61b6a9adf97a92455/jetified-acra-4.8.5/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a652380b28af31d61b6a9adf97a92455/jetified-acra-4.8.5/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a652380b28af31d61b6a9adf97a92455/jetified-acra-4.8.5/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5252e7c0f218af098e22a6fc8ed6045/jetified-acra-4.8.5/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5252e7c0f218af098e22a6fc8ed6045/jetified-acra-4.8.5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5252e7c0f218af098e22a6fc8ed6045/jetified-acra-4.8.5/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.acra/acra/4.8.5/cd32d65767d0c660741b5f17987adcf93dfcba79/acra-4.8.5-javadoc.jar!/" />
