@@ -10,9 +10,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hitesh_sahu.retailapp">
 
-    <uses-sdk
+    <!-- uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="23" / -->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
