@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
                 .setDisplayHomeAsUpEnabled(true);
 
         toolbar.setNavigationIcon(R.drawable.ic_drawer);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ECartHomeActivity) getActivity()).getmDrawerLayout()

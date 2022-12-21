@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hitesh_sahu.retailapp.view.activities.SignupActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_weight="5"
+            android:src="@drawable/ic_login"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/signup_form"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/app_logo" />
+
+        <EditText
+            android:id="@+id/username"
+            android:textColor="#fff"
+            android:textColorHint="#eee"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:hint="Name"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/rounded_corner"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/tel"
+            android:textColor="#fff"
+            android:textColorHint="#eee"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:hint="Tel"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/rounded_corner"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:textColor="#fff"
+            android:textColorHint="#eee"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:hint="Email"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/rounded_corner"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/round_corner_buttom"
+            android:text="Register"
+            android:textColor="#FF954CFB"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/signup_form"
+        android:layout_marginTop="15dp">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/signup_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:indicator="LineScaleParty"
+            app:indicator_color="#F53700" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

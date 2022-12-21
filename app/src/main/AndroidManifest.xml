@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
-  ~ Unauthorized copying of this file, via any medium is strictly prohibited
-  ~ If you use or distribute this project then you MUST ADD A COPY OF LICENCE
-  ~ along with the project.
-  ~  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hitesh_sahu.retailapp">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
-
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -21,24 +13,26 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AppController"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/MyTheme">
 
-        <!-- Single Activity Model-->
+        <activity
+            android:name=".view.activities.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait" />
+
+        <!-- Single Activity Model -->
         <activity
             android:name=".view.activities.ECartHomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activities.APrioriResultActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
-
-        <!-- Splash Activity -->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activities.SplashActivity"
             android:noHistory="true"

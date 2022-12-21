@@ -93,12 +93,12 @@ public class ProductListAdapter extends
         holder.itemDesc.setText(productList.get(position)
                 .getItemShortDesc());
 
-        String sellCostString = Money.rupees(
+        String sellCostString = Money.toCurrency(
                 BigDecimal.valueOf(Long.valueOf(productList.get(position)
                         .getSellMRP()))).toString()
                 + "  ";
 
-        String buyMRP = Money.rupees(
+        String buyMRP = Money.toCurrency(
                 BigDecimal.valueOf(Long.valueOf(productList.get(position)
                         .getMRP()))).toString();
 
@@ -308,7 +308,7 @@ public class ProductListAdapter extends
     }
 
     class VersionViewHolder extends RecyclerView.ViewHolder implements
-            View.OnClickListener {
+            OnClickListener {
         TextView itemName, itemDesc, itemCost, availability, quanitity,
                 addItem, removeItem;
         ImageView imagView;

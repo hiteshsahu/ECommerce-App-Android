@@ -8,6 +8,7 @@
 
 package com.hitesh_sahu.retailapp.view.activities;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -69,6 +74,40 @@ public class ECartHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecart);
 
+
+
+        // Show Signup form if the user is not registered
+        if (!PreferenceHelper.getPreferenceHelperInstance()
+                .isUserLoggedIn(getApplicationContext())){
+
+            Intent signupIntent = new Intent(getApplicationContext(), SignupActivity.class);
+
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == Activity.RESULT_OK) {
+                                Intent data = result.getData();
+                                if (data.getBooleanExtra(SignupActivity.RESULT, false)){
+                                    PreferenceHelper preferenceHelper = PreferenceHelper.getPreferenceHelperInstance();
+                                    // Get user signup data
+                                    preferenceHelper.setString(getApplicationContext(),
+                                            SignupActivity.USERNAME, data.getStringExtra(SignupActivity.USERNAME));
+                                    preferenceHelper.setString(getApplicationContext(),
+                                            SignupActivity.EMAIL, data.getStringExtra(SignupActivity.EMAIL));
+                                    preferenceHelper.setString(getApplicationContext(),
+                                            SignupActivity.TEL, data.getStringExtra(SignupActivity.TEL));
+                                    preferenceHelper.setUserLoggedIn(true, getApplicationContext());
+                                }
+                            } else {
+                                finish();
+                            }
+                        }
+                    }).launch( signupIntent );
+        }
+
+
         CenterRepository.getCenterRepository().setListOfProductsInShoppingList(
                 new TinyDB(getApplicationContext()).getListObject(
                         PreferenceHelper.MY_CART_LIST_LOCAL, Product.class));
@@ -86,7 +125,7 @@ public class ECartHomeActivity extends AppCompatActivity {
 
         checkOutAmount = (TextView) findViewById(R.id.checkout_amount);
         checkOutAmount.setSelected(true);
-        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+        checkOutAmount.setText(Money.toCurrency(checkoutAmount).toString());
         offerBanner.setSelected(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.nav_drawer);
@@ -258,7 +297,7 @@ public class ECartHomeActivity extends AppCompatActivity {
                 checkoutAmount = checkoutAmount.subtract(amount);
         }
 
-        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+        checkOutAmount.setText(Money.toCurrency(checkoutAmount).toString());
     }
 
     @Override
@@ -423,7 +462,7 @@ public class ECartHomeActivity extends AppCompatActivity {
                         itemCount = 0;
                         itemCountTextView.setText(String.valueOf(0));
                         checkoutAmount = new BigDecimal(BigInteger.ZERO);
-                        checkOutAmount.setText(Money.rupees(checkoutAmount).toString());
+                        checkOutAmount.setText(Money.toCurrency(checkoutAmount).toString());
 
                     }
                 });
@@ -441,7 +480,7 @@ public class ECartHomeActivity extends AppCompatActivity {
             public void onDismiss(DialogInterface dialog) {
                 Snackbar.make(ECartHomeActivity.this.getWindow().getDecorView().findViewById(android.R.id.content)
                         , "Order Placed Successfully, Happy Shopping !!", Snackbar.LENGTH_LONG)
-                        .setAction("View Apriori Output", new View.OnClickListener() {
+                        .setAction("View Apriori Output", new OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 startActivity(new Intent(ECartHomeActivity.this, APrioriResultActivity.class));

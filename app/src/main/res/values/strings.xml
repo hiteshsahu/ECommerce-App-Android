@@ -8,7 +8,7 @@
 
 <resources>
 
-    <string name="app_name">Retail Shop</string>
+    <string name="app_name">UBS</string>
     <string name="action_settings">Settings</string>
     <string name="empty_text">Select song from below to play</string>
     <string name="standard">Standard</string>
@@ -23,7 +23,7 @@
     <string name="offer_banner">"Shop for 2000 to get Rs 100 discount and shop for 3000 to get Rs 200 discount"</string>
     <string name="checkout">CheckOut</string>
     <string name="similar_product">You may also like</string>
-    <string name="slogan">Assignment</string>
+    <string name="slogan">Easy Delivery</string>
     <string name="email_developer_">Email Developer:</string>
     <string name="personal_website_">Personal Website :</string>
     <string name="site_hitesh">www.hiteshsahu.com</string>
@@ -32,5 +32,19 @@
     <string name="lab_locations">Locations</string>
     <string name="pune">Pune</string>
     <string name="address_value">C 1002, Lorelle Socity Wakad Pune</string>
+    <string name="title_activity_signup">Sign up</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_data">The information you entered is invalid</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

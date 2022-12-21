@@ -71,16 +71,15 @@ public class WhatsNewDialog {
 
     private void show() {
 
-        if (!PreferenceHelper.getPrefernceHelperInstace()
+        if (!PreferenceHelper.getPreferenceHelperInstance()
                 .getString(mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN, "0")
                 .equalsIgnoreCase(Utils.getVersion(mContext))) {
 
-            // This version is new, show only the changes from this version (if
-            // available)
+            // This version is new, show only the changes from this version (if available)
 
             show(Utils.getVersion(mContext));
 
-            PreferenceHelper.getPrefernceHelperInstace().setString(
+            PreferenceHelper.getPreferenceHelperInstance().setString(
                     mContext, PreferenceHelper.WHATS_NEW_LAST_SHOWN,
                     Utils.getVersion(mContext));
         }

@@ -1,27 +1,25 @@
-/*
- * Copyright (c) 2017. http://hiteshsahu.com- All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * If you use or distribute this project then you MUST ADD A COPY OF LICENCE
- * along with the project.
- *  Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
- */
-
 package com.hitesh_sahu.retailapp.view.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
-
 import com.hitesh_sahu.retailapp.R;
+import com.hitesh_sahu.retailapp.view.activities.ECartHomeActivity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
 public class SplashActivity extends FragmentActivity {
 
@@ -35,18 +33,10 @@ public class SplashActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
         logo = (ImageView) findViewById(R.id.logo_img);
         appTitle = (TextView) findViewById(R.id.track_txt);
         appSlogan = (TextView) findViewById(R.id.pro_txt);
-
-        // Font path
-        String fontPath = "font/CircleD_Font_by_CrazyForMusic.ttf";
-        // Loading Font Face
-        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
-
-        // Applying font
-        appTitle.setTypeface(tf);
-        appSlogan.setTypeface(tf);
 
         if (savedInstanceState == null) {
             flyIn();
@@ -59,6 +49,12 @@ public class SplashActivity extends FragmentActivity {
                 endSplash();
             }
         }, 3000);
+    }
+
+    private void startHomeActivity() {
+        Intent intent = new Intent(getApplicationContext(), ECartHomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void flyIn() {
@@ -86,13 +82,10 @@ public class SplashActivity extends FragmentActivity {
                 R.anim.pro_animation_back);
         appSlogan.startAnimation(animation);
 
-        animation.setAnimationListener(new AnimationListener() {
+        animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationEnd(Animation arg0) {
-
-                Intent intent = new Intent(getApplicationContext(),
-                        ECartHomeActivity.class);
-                startActivity(intent);
+            public void onAnimationEnd(Animation animation) {
+                startHomeActivity();
                 finish();
             }
 

@@ -30,7 +30,7 @@ public class PreferenceHelper {
     private PreferenceHelper() {
     }
 
-    public static PreferenceHelper getPrefernceHelperInstace() {
+    public static PreferenceHelper getPreferenceHelperInstance() {
 
         return preferenceHelperInstance;
     }
