@@ -7,6 +7,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de97b98e88aed8ab1a17a059a69458b4/library-1.0.5/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de97b98e88aed8ab1a17a059a69458b4/library-1.0.5/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de97b98e88aed8ab1a17a059a69458b4/library-1.0.5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de97b98e88aed8ab1a17a059a69458b4/jetified-library-1.0.5/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de97b98e88aed8ab1a17a059a69458b4/jetified-library-1.0.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de97b98e88aed8ab1a17a059a69458b4/jetified-library-1.0.5/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wang.avi/library/1.0.5/3154daec976e59b599e0a0b3e4effd6a6d3e8be6/library-1.0.5-javadoc.jar!/" />
